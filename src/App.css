@@ -4,13 +4,29 @@
   grid-template-rows: 100vh;
   grid-auto-flow: column;
 }
-.sidebar {
+.left-sidebar {
+  display:grid;
   grid-column: 1;
+  grid-template-columns: 100%;
+  align-items: center;
+
   background-color: green;
 }
 .middlebar {
   background-color: gray;
   grid-column: 2;
+
+  display:grid;
+  grid-template-columns: 100%;
+  overflow: auto; 
+}
+.right-sidebar {
+  background-color: paleturquoise;
+  grid-column: 3;
+
+  display:grid;
+  grid-template-columns: 100%;
+  overflow: auto; 
 }
 .tab-button {
   text-align: center;
@@ -20,6 +36,11 @@
   padding: 10px;
   background-color: greenyellow;
   border: 2px solid black;
+}
+.chat-container{
+  display:grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 80vh 20vh;
 }
 /* .App {
   text-align: center;

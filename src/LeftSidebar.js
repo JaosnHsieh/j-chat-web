@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import TabButton from "./TabButton.js";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-import Contacts from "./Contacts.js";
-import Chat from "./Chat.js";
-import Profile from "./Profile.js";
+// import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+// import Contacts from "./Contacts.js";
+// import Chat from "./Chat.js";
+// import Profile from "./Profile.js";
+
 class Sidebar extends Component {
   constructor(props) {
     super(props);
@@ -13,7 +14,7 @@ class Sidebar extends Component {
   }
   render() {
     return (
-      <div className="sidebar">
+      <div className="left-sidebar">
         <TabButton url={"/Contacts"}>Contacts</TabButton>
         <TabButton url={"/Chat"}>Chat</TabButton>
         <TabButton url={"/Profile"}>Profile</TabButton>
