@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
-import Contacts from "./Contacts.js";
-import Chat from "./Chat.js";
-import Profile from "./Profile.js";
+import Chat from "../Chat";
 class Middlebar extends Component {
   constructor(props) {
     super(props);
@@ -12,11 +10,9 @@ class Middlebar extends Component {
   }
   render() {
     return (
-      <div className="middlebar">
+      <div className="right-sidebar">
         <Switch>
-          <Route path="/Contacts" component={Contacts} />
-          <Route path="/Chat" component={Chat} />
-          <Route path="/Profile" component={Profile} />
+          <Route path="/Contacts/:id" component={Chat} />
         </Switch>
       </div>
     );

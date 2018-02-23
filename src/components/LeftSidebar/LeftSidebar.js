@@ -1,9 +1,5 @@
 import React, { Component } from "react";
-import TabButton from "./TabButton.js";
-// import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-// import Contacts from "./Contacts.js";
-// import Chat from "./Chat.js";
-// import Profile from "./Profile.js";
+import TabButton from "../TabButton";
 
 class Sidebar extends Component {
   constructor(props) {
