@@ -1,29 +1,52 @@
 import React from "react";
-import fakeAuth from "../../libs/fakeAuth.js";
 import { Redirect } from "react-router-dom";
+
 class Login extends React.Component {
   state = {
-    redirectToReferrer: false
+    username: "",
+    password: ""
   };
 
-  login = () => {
-    fakeAuth.authenticate(() => {
-      this.setState({ redirectToReferrer: true });
+  onSubmit = async (e, onLogined) => {
+    e.preventDefault();
+    onLogined({ ...this.state });
+  };
+  usernameOnChange = e => {
+    this.setState({
+      username: e.target.value
     });
   };
-
+  passwordOnChange = e => {
+    this.setState({
+      password: e.target.value
+    });
+  };
   render() {
-    const { from } = this.props.location.state || { from: { pathname: "/" } };
-    const { redirectToReferrer } = this.state;
+    const { onLogined, isAuthenticated } = this.props;
 
-    if (redirectToReferrer) {
-      return <Redirect to={from} />;
+    if (isAuthenticated) {
+      return <Redirect to={"/"} />;
     }
 
     return (
       <div>
-        <p>You must log in to view the page at {from.pathname}</p>
-        <button onClick={this.login}>Log in</button>
+        <form
+          onSubmit={e => {
+            this.onSubmit(e, onLogined);
+          }}
+        >
+          <input
+            value={this.state.username}
+            onChange={this.usernameOnChange}
+            type="text"
+          />
+          <input
+            value={this.state.password}
+            onChange={this.passwordOnChange}
+            type="password"
+          />
+          <input type="submit" />
+        </form>
       </div>
     );
   }
