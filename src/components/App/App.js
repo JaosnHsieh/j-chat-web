@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import Login from "../Login";
 import Protected from "../Protected";
 import PrivateRoute from "../PrivateRoute";
+import Signup from "../Signup";
 import AuthButton from "../AuthButton";
 import axios from "../../libs/axios.js";
 
@@ -43,6 +44,11 @@ class App extends Component {
     }
     cb();
   };
+  onSingupComplete = () => {
+    this.setState({
+      isAuthenticated: true
+    });
+  };
   render() {
     return (
       <div>
@@ -58,6 +64,16 @@ class App extends Component {
                 {...props}
                 isAuthenticated={this.state.isAuthenticated}
                 onLogined={this.onLogined}
+              />
+            )}
+          />
+          <Route
+            path="/signup"
+            render={props => (
+              <Signup
+                {...props}
+                isAuthenticated={this.state.isAuthenticated}
+                onSingupComplete={this.onSingupComplete}
               />
             )}
           />

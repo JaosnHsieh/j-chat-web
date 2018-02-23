@@ -1,11 +1,11 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 
 const AuthButton = withRouter(
   ({ history, isAuthenticated, onLogout }) =>
     isAuthenticated ? (
       <p>
-        Welcome!{" "}
+        Welcome!
         <button
           onClick={() => {
             onLogout(() => history.push("/"));
@@ -15,7 +15,9 @@ const AuthButton = withRouter(
         </button>
       </p>
     ) : (
-      <p>You are not logged in.</p>
+      <p>
+        You are not logged in. <Link to="/signup"> Sign Up </Link>
+      </p>
     )
 );
 
