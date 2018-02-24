@@ -16,7 +16,8 @@ const AuthButton = withRouter(
       </p>
     ) : (
       <p>
-        You are not logged in. <Link to="/signup"> Sign Up </Link>
+        You are not logged in. <Link to="/signup"> Sign Up </Link>{" "}
+        <Link to="/login"> Login </Link>
       </p>
     )
 );

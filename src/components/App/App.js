@@ -7,28 +7,39 @@ import PrivateRoute from "../PrivateRoute";
 import Signup from "../Signup";
 import AuthButton from "../AuthButton";
 import axios from "../../libs/axios.js";
-
+import io from "socket.io-client";
+let socket;
 class App extends Component {
   state = {
     isAuthenticated: false
   };
   async componentDidMount() {
+    this.checkIfAlreadyLogined();
+  }
+  checkIfAlreadyLogined = async () => {
     try {
       await axios.get("/login");
-      this.setState({
-        isAuthenticated: true
-      });
-    } catch (err) {}
-  }
+      this.updateLoginState(true);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  updateLoginState = boo => {
+    this.setState({
+      isAuthenticated: boo
+    });
+    boo ? this.listenToWebsocket() : socket && socket.disconnect();
+  };
+  listenToWebsocket = () => {
+    socket = io("localhost:3030");
+  };
   onLogined = async ({ username, password }) => {
     try {
       await axios.post("/login", {
         username,
         password
       });
-      this.setState({
-        isAuthenticated: true
-      });
+      this.updateLoginState(true);
     } catch (err) {
       console.log(err);
     }
@@ -36,9 +47,7 @@ class App extends Component {
   onLogout = async cb => {
     try {
       await axios.post("/logout");
-      this.setState({
-        isAuthenticated: false
-      });
+      this.updateLoginState(false);
     } catch (err) {
       console.log(err);
     }
