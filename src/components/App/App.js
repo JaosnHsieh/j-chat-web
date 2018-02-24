@@ -11,10 +11,31 @@ import io from "socket.io-client";
 let socket;
 class App extends Component {
   state = {
-    isAuthenticated: false
+    isAuthenticated: false,
+    userList: [],
+    groupList: [],
+    messages: []
   };
   async componentDidMount() {
     this.checkIfAlreadyLogined();
+    const [{ data: users }, { data: messages }] = await Promise.all([
+      axios.get("/user"),
+      axios.get("/message/user")
+    ]);
+    this.setState({
+      userList: users.map(user => {
+        user.avatar = `https://placem.at/people?w=100`;
+        return user;
+      }),
+      messages: messages.reduce((result, ele) => {
+        return {
+          ...result,
+          [ele.ChatMessage.idno]: result[`${ele.ChatMessage.idno}`]
+            ? [...result[ele.ChatMessage.idno], ele.ChatMessage]
+            : [ele.ChatMessage]
+        };
+      }, {})
+    });
   }
   checkIfAlreadyLogined = async () => {
     try {
@@ -59,6 +80,7 @@ class App extends Component {
     });
   };
   render() {
+    const { userList, messages } = this.state;
     return (
       <div>
         <AuthButton
@@ -90,6 +112,8 @@ class App extends Component {
             path="/"
             component={Protected}
             isAuthenticated={this.state.isAuthenticated}
+            userList={userList}
+            messages={messages}
           />
         </Switch>
       </div>

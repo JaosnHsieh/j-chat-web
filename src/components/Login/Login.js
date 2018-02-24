@@ -3,8 +3,8 @@ import { Redirect } from "react-router-dom";
 
 class Login extends React.Component {
   state = {
-    username: "",
-    password: ""
+    username: "jason1",
+    password: "1234"
   };
 
   onSubmit = async (e, onLogined) => {
@@ -35,16 +35,26 @@ class Login extends React.Component {
             this.onSubmit(e, onLogined);
           }}
         >
-          <input
-            value={this.state.username}
-            onChange={this.usernameOnChange}
-            type="text"
-          />
-          <input
-            value={this.state.password}
-            onChange={this.passwordOnChange}
-            type="password"
-          />
+          <div>
+            <label>
+              username:
+              <input
+                value={this.state.username}
+                onChange={this.usernameOnChange}
+                type="text"
+              />
+            </label>
+          </div>
+          <div>
+            <label>
+              password:
+              <input
+                value={this.state.password}
+                onChange={this.passwordOnChange}
+                type="password"
+              />
+            </label>
+          </div>
           <input type="submit" />
         </form>
       </div>

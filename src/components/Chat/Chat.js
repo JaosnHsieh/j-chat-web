@@ -30,12 +30,14 @@ class Chat extends Component {
     });
   };
   render() {
-    const { match } = this.props;
+    const { match, userList, messages } = this.props;
     const userId = match && match.params && match.params.id;
     const { people } = this.state;
     const lines = (people && people[userId]) || [];
     return (
       <div className={`chat-container`}>
+        {messages[userId] &&
+          messages[userId].map(msg => <h3>{msg.messageBody}</h3>)}
         <div className={`lines`}>
           chat to {userId}
           {lines.map((line, i) => <h3 key={i}>{line}</h3>)}

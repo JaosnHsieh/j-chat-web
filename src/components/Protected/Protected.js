@@ -3,11 +3,11 @@ import LeftSidebar from "../LeftSidebar";
 import Middlebar from "../Middlebar";
 import RightSidebar from "../RightSidebar";
 
-const Protected = () => (
+const Protected = props => (
   <div className="container">
     <LeftSidebar />
-    <Middlebar />
-    <RightSidebar />
+    <Middlebar {...props} />
+    <RightSidebar {...props} />
   </div>
 );
 

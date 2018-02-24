@@ -5,38 +5,36 @@ import { Link } from "react-router-dom";
 import axios from "../../libs/axios.js";
 
 class Contacts extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      userList: [],
-      groupList: [],
-      messages: []
-    };
-  }
-  async componentDidMount() {
-    const [{ data: users }, { data: messages }] = await Promise.all([
-      axios.get("/user"),
-      axios.get("/message/user")
-    ]);
-    this.setState({
-      userList: users.map(user => {
-        user.avatar = `https://placem.at/people?w=100`;
-        return user;
-      }),
-      messages: messages.reduce((result, ele) => {
-        return {
-          ...result,
-          [ele.ChatMessage.idno]: result[`${ele.ChatMessage.idno}`]
-            ? [...result[ele.ChatMessage.idno], ele.ChatMessage]
-            : [ele.ChatMessage]
-        };
-      }, {})
-    });
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     userList: [],
+  //     groupList: [],
+  //     messages: []
+  //   };
+  // }
+  // async componentDidMount() {
+  //   const [{ data: users }, { data: messages }] = await Promise.all([
+  //     axios.get("/user"),
+  //     axios.get("/message/user")
+  //   ]);
+  //   this.setState({
+  //     userList: users.map(user => {
+  //       user.avatar = `https://placem.at/people?w=100`;
+  //       return user;
+  //     }),
+  //     messages: messages.reduce((result, ele) => {
+  //       return {
+  //         ...result,
+  //         [ele.ChatMessage.idno]: result[`${ele.ChatMessage.idno}`]
+  //           ? [...result[ele.ChatMessage.idno], ele.ChatMessage]
+  //           : [ele.ChatMessage]
+  //       };
+  //     }, {})
+  //   });
+  // }
   render() {
-    const { match } = this.props;
-    const { userList, messages } = this.state;
-    console.log("messages in render method", messages);
+    const { match, userList, messages } = this.props;
     return (
       <div>
         {userList.map(ele => (
@@ -45,8 +43,7 @@ class Contacts extends React.Component {
               <span>
                 {(messages[ele.idno] && messages[ele.idno].length) || 0}
               </span>
-
-              <img src={ele.avatar} alt={"123"} />
+              <img src={ele.avatar} alt={""} />
               {ele.name}
             </Link>
           </div>

@@ -12,8 +12,8 @@ class Sidebar extends Component {
     return (
       <div className="left-sidebar">
         <TabButton url={"/Contacts"}>Contacts</TabButton>
-        <TabButton url={"/Chat"}>Chat</TabButton>
-        <TabButton url={"/Profile"}>Profile</TabButton>
+        {/* <TabButton url={"/Chat"}>Chat</TabButton>
+        <TabButton url={"/Profile"}>Profile</TabButton> */}
       </div>
     );
   }
