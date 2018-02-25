@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import Contacts from "../Contacts";
-import Chat from "../Chat";
-import Profile from "../Profile";
+// import Chat from "../Chat";
+// import Profile from "../Profile";
 
 const HOC = (inputProps, Component) => {
   return ({ ...routeProps }) => <Component {...inputProps} {...routeProps} />;

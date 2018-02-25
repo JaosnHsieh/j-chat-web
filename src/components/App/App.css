@@ -5,7 +5,7 @@
   grid-auto-flow: column;
 }
 .left-sidebar {
-  display:grid;
+  display: grid;
   grid-column: 1;
   grid-template-columns: 100%;
   align-items: center;
@@ -16,17 +16,17 @@
   background-color: gray;
   grid-column: 2;
 
-  display:grid;
+  display: grid;
   grid-template-columns: 100%;
-  overflow: auto; 
+  overflow: auto;
 }
 .right-sidebar {
   background-color: paleturquoise;
   grid-column: 3;
 
-  display:grid;
+  display: grid;
   grid-template-columns: 100%;
-  overflow: auto; 
+  overflow: auto;
 }
 .tab-button {
   text-align: center;
@@ -37,10 +37,37 @@
   background-color: greenyellow;
   border: 2px solid black;
 }
-.chat-container{
-  display:grid;
+.chat-container {
+  display: grid;
   grid-template-columns: 100%;
   grid-template-rows: 80vh 20vh;
+}
+
+.logined {
+  position: absolute;
+  background-color: #71da63;
+  padding: 5px;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(152, 168, 158);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #4e5751;
 }
 /* .App {
   text-align: center;

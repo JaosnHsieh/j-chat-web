@@ -9,6 +9,7 @@ import AuthButton from "../AuthButton";
 import axios from "../../libs/axios.js";
 import io from "socket.io-client";
 let socket;
+let rawMessages = [];
 class App extends Component {
   state = {
     isAuthenticated: false,
@@ -18,25 +19,31 @@ class App extends Component {
   };
   async componentDidMount() {
     this.checkIfAlreadyLogined();
+  }
+  getUserInitData = async () => {
     const [{ data: users }, { data: messages }] = await Promise.all([
       axios.get("/user"),
       axios.get("/message/user")
     ]);
+    rawMessages = messages;
     this.setState({
       userList: users.map(user => {
         user.avatar = `https://placem.at/people?w=100`;
         return user;
       }),
-      messages: messages.reduce((result, ele) => {
-        return {
-          ...result,
-          [ele.ChatMessage.idno]: result[`${ele.ChatMessage.idno}`]
-            ? [...result[ele.ChatMessage.idno], ele.ChatMessage]
-            : [ele.ChatMessage]
-        };
-      }, {})
+      messages: this.formatMessages(rawMessages)
     });
-  }
+  };
+  formatMessages = messages =>
+    messages.reduce((result, ele) => {
+      let creatorId = ele.ChatMessage.creatorId;
+      return {
+        ...result,
+        [creatorId]: result[`${creatorId}`]
+          ? [...result[creatorId], ele.ChatMessage]
+          : [ele.ChatMessage]
+      };
+    }, {});
   checkIfAlreadyLogined = async () => {
     try {
       await axios.get("/login");
@@ -49,10 +56,24 @@ class App extends Component {
     this.setState({
       isAuthenticated: boo
     });
-    boo ? this.listenToWebsocket() : socket && socket.disconnect();
+    if (boo) {
+      this.listenToWebsocket();
+      this.getUserInitData();
+    } else {
+      socket && socket.disconnect();
+    }
   };
   listenToWebsocket = () => {
     socket = io("localhost:3030");
+    socket.on("my message", data => {
+      rawMessages.push(data);
+      this.setState({
+        messages: this.formatMessages(rawMessages)
+      });
+    });
+  };
+  sendViaWebsocket = (idno, msg) => {
+    socket.emit("toSomeone", idno, msg);
   };
   onLogined = async ({ username, password }) => {
     try {
@@ -114,6 +135,7 @@ class App extends Component {
             isAuthenticated={this.state.isAuthenticated}
             userList={userList}
             messages={messages}
+            sendViaWebsocket={this.sendViaWebsocket}
           />
         </Switch>
       </div>

@@ -2,7 +2,7 @@ import React from "react";
 // import faker from "faker";
 import { Link } from "react-router-dom";
 // import Chat from "./Chat.js";
-import axios from "../../libs/axios.js";
+// import axios from "../../libs/axios.js";
 
 class Contacts extends React.Component {
   // constructor(props) {

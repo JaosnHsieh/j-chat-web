@@ -15,6 +15,7 @@ class Chat extends Component {
     const { people } = this.state;
     const userLines = this.state.people[userId] || [];
     const updatedLines = [...userLines, this.state.input];
+    this.props.sendViaWebsocket(userId, this.state.input);
     this.setState({
       people: {
         ...people,
@@ -29,15 +30,18 @@ class Chat extends Component {
       input
     });
   };
+
   render() {
-    const { match, userList, messages } = this.props;
+    const { match, messages } = this.props;
     const userId = match && match.params && match.params.id;
     const { people } = this.state;
     const lines = (people && people[userId]) || [];
     return (
       <div className={`chat-container`}>
         {messages[userId] &&
-          messages[userId].map(msg => <h3>{msg.messageBody}</h3>)}
+          messages[userId].map(msg => (
+            <h3 key={msg.idno}>{msg.messageBody}</h3>
+          ))}
         <div className={`lines`}>
           chat to {userId}
           {lines.map((line, i) => <h3 key={i}>{line}</h3>)}

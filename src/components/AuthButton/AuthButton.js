@@ -4,7 +4,7 @@ import { withRouter, Link } from "react-router-dom";
 const AuthButton = withRouter(
   ({ history, isAuthenticated, onLogout }) =>
     isAuthenticated ? (
-      <p>
+      <p className="logined">
         Welcome!
         <button
           onClick={() => {
