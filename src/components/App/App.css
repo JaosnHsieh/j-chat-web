@@ -40,7 +40,7 @@
 .chat-container {
   display: grid;
   grid-template-columns: 100%;
-  grid-template-rows: 80vh 20vh;
+  /* grid-template-rows: 80vh 20vh; */
 }
 
 .logined {
@@ -68,6 +68,12 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #4e5751;
+}
+.name {
+  text-align: right;
+}
+.myname {
+  color: red;
 }
 /* .App {
   text-align: center;

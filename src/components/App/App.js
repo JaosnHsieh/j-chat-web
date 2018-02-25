@@ -21,6 +21,22 @@ class App extends Component {
   async componentDidMount() {
     this.checkIfAlreadyLogined();
   }
+  addCurrentUserMessage = (userId, messageBody) => {
+    const { messages, currentUser } = this.state;
+    console.log("messageBody", messageBody);
+    console.log("messages", messages);
+    console.log("userId", userId);
+    const updatedMessages = {
+      ...messages,
+      [userId]: [
+        ...messages[userId],
+        { messageBody, creatorId: currentUser.idno }
+      ]
+    };
+    this.setState({
+      messages: updatedMessages
+    });
+  };
   getUserInitData = async () => {
     const [{ data: users }, { data: messages }] = await Promise.all([
       axios.get("/user"),
@@ -88,6 +104,7 @@ class App extends Component {
   };
   sendViaWebsocket = (idno, msg) => {
     socket.emit("toSomeone", idno, msg);
+    this.addCurrentUserMessage(idno, msg);
   };
   onLogined = async ({ username, password }) => {
     try {
