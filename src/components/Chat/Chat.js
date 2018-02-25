@@ -32,10 +32,12 @@ class Chat extends Component {
   };
 
   render() {
-    const { match, messages } = this.props;
+    const { match, messages, userList } = this.props;
     const userId = match && match.params && match.params.id;
     const { people } = this.state;
     const lines = (people && people[userId]) || [];
+    console.log("messages", messages);
+    console.log("userList...", userList);
     return (
       <div className={`chat-container`}>
         {messages[userId] &&

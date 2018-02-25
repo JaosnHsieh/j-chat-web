@@ -15,7 +15,8 @@ class App extends Component {
     isAuthenticated: false,
     userList: [],
     groupList: [],
-    messages: []
+    messages: [],
+    currentUser: null
   };
   async componentDidMount() {
     this.checkIfAlreadyLogined();
@@ -26,6 +27,8 @@ class App extends Component {
       axios.get("/message/user")
     ]);
     rawMessages = messages;
+    console.log("rawMessages", rawMessages);
+    console.log("formatMessage", this.formatMessages(rawMessages));
     this.setState({
       userList: users.map(user => {
         user.avatar = `https://placem.at/people?w=100`;
@@ -34,27 +37,38 @@ class App extends Component {
       messages: this.formatMessages(rawMessages)
     });
   };
-  formatMessages = messages =>
-    messages.reduce((result, ele) => {
-      let creatorId = ele.ChatMessage.creatorId;
+  formatMessages = messages => {
+    const { currentUser } = this.state;
+    return messages.reduce((result, ele) => {
+      const { senderId, recipientId } = ele;
+      if (senderId === currentUser.idno) {
+        return {
+          ...result,
+          [recipientId]: result[`${recipientId}`]
+            ? [...result[recipientId], ele.ChatMessage]
+            : [ele.ChatMessage]
+        };
+      }
       return {
         ...result,
-        [creatorId]: result[`${creatorId}`]
-          ? [...result[creatorId], ele.ChatMessage]
+        [senderId]: result[`${senderId}`]
+          ? [...result[senderId], ele.ChatMessage]
           : [ele.ChatMessage]
       };
     }, {});
+  };
   checkIfAlreadyLogined = async () => {
     try {
-      await axios.get("/login");
-      this.updateLoginState(true);
+      let { data: currentUser } = await axios.get("/login");
+      this.updateLoginState(true, currentUser);
     } catch (err) {
       console.log(err);
     }
   };
-  updateLoginState = boo => {
+  updateLoginState = (boo, currentUser) => {
     this.setState({
-      isAuthenticated: boo
+      isAuthenticated: boo,
+      currentUser
     });
     if (boo) {
       this.listenToWebsocket();
@@ -77,11 +91,11 @@ class App extends Component {
   };
   onLogined = async ({ username, password }) => {
     try {
-      await axios.post("/login", {
+      const { data: currentUser } = await axios.post("/login", {
         username,
         password
       });
-      this.updateLoginState(true);
+      this.updateLoginState(true, currentUser);
     } catch (err) {
       console.log(err);
     }
@@ -89,7 +103,7 @@ class App extends Component {
   onLogout = async cb => {
     try {
       await axios.post("/logout");
-      this.updateLoginState(false);
+      this.updateLoginState(false, null);
     } catch (err) {
       console.log(err);
     }
@@ -101,12 +115,13 @@ class App extends Component {
     });
   };
   render() {
-    const { userList, messages } = this.state;
+    const { userList, messages, isAuthenticated, currentUser } = this.state;
     return (
       <div>
         <AuthButton
-          isAuthenticated={this.state.isAuthenticated}
+          isAuthenticated={isAuthenticated}
           onLogout={this.onLogout}
+          currentUser={currentUser}
         />
         <Switch>
           <Route

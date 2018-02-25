@@ -2,10 +2,10 @@ import React from "react";
 import { withRouter, Link } from "react-router-dom";
 
 const AuthButton = withRouter(
-  ({ history, isAuthenticated, onLogout }) =>
+  ({ history, isAuthenticated, onLogout, currentUser }) =>
     isAuthenticated ? (
       <p className="logined">
-        Welcome!
+        Hi, {currentUser && currentUser.username}
         <button
           onClick={() => {
             onLogout(() => history.push("/"));
