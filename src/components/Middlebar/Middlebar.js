@@ -15,13 +15,12 @@ class Middlebar extends Component {
     };
   }
   render() {
-    const { messages, userList } = this.props;
     return (
       <div className="middlebar">
         <Switch>
           <Route
             path="/Contacts"
-            component={HOC({ messages, userList }, Contacts)}
+            component={HOC({ ...this.props }, Contacts)}
           />
           {/* <Route
             path="/Chat"

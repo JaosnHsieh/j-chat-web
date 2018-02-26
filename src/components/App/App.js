@@ -30,8 +30,14 @@ class App extends Component {
       ...messages,
       [userId]: [
         ...messages[userId],
-        { messageBody, creatorId: currentUser.idno }
-      ]
+        {
+          messageBody,
+          creatorId: currentUser.idno,
+          createdAt: new Date().toISOString()
+        }
+      ].sort(function(a, b) {
+        return new Date(a.createdAt) - new Date(b.createdAt);
+      })
     };
     this.setState({
       messages: updatedMessages
@@ -43,8 +49,6 @@ class App extends Component {
       axios.get("/message/user")
     ]);
     rawMessages = messages;
-    console.log("rawMessages", rawMessages);
-    console.log("formatMessage", this.formatMessages(rawMessages));
     this.setState({
       userList: users.map(user => {
         user.avatar = `https://placem.at/people?w=100`;
@@ -168,6 +172,7 @@ class App extends Component {
             userList={userList}
             messages={messages}
             sendViaWebsocket={this.sendViaWebsocket}
+            currentUser={this.state.currentUser}
           />
         </Switch>
       </div>

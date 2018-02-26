@@ -46,22 +46,34 @@ class Chat extends Component {
         [ele.idno]: { ...ele }
       };
     }, {});
-    console.log("messages", messages);
-    console.log("userList...", userList);
-    console.log("userListMap", userListMap);
+    const dateStringToshow = [];
     // console.log("addCurrentUserMessage", addCurrentUserMessage);
     return (
       <div className={`chat-container`}>
         {messages[userId] &&
-          messages[userId].map((msg, index) => (
-            <div
-              className={msg.creatorId == userId ? "name" : "myname"}
-              key={index}
-            >
-              <span>{userListMap[msg && msg.creatorId].username} : </span>
-              {msg.messageBody}
-            </div>
-          ))}
+          messages[userId].map((msg, index) => {
+            const dateObj = new Date(msg.createdAt);
+            const dateString = dateObj.toLocaleDateString();
+            const timeString = dateObj.toLocaleTimeString();
+            const lastDateString =
+              dateStringToshow[dateStringToshow.length - 1];
+            if (dateStringToshow[dateStringToshow.length - 1] !== dateString) {
+              dateStringToshow.push(dateString);
+            }
+            return (
+              <div
+                className={
+                  msg.creatorId === parseInt(userId) ? "name" : "myname"
+                }
+                key={index}
+              >
+                {dateString !== lastDateString ? <h3>{dateString}</h3> : ""}
+                <span>{timeString}</span>
+                <span>{userListMap[msg && msg.creatorId].username} : </span>
+                {msg.messageBody}
+              </div>
+            );
+          })}
         <div className={`lines`} />
         <div className={`chat-input`}>
           <form
