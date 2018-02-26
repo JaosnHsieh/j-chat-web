@@ -19,7 +19,7 @@ class Middlebar extends Component {
       <div className="middlebar">
         <Switch>
           <Route
-            path="/Contacts"
+            path="/contacts"
             component={HOC({ ...this.props }, Contacts)}
           />
           {/* <Route

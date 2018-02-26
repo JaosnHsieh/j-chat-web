@@ -92,7 +92,15 @@ class Chat extends Component {
                 }
               }}
             />
-            <button type="button">Submit</button>
+            <button
+              type="button"
+              onClick={event => {
+                this.onSubmit(userId);
+                event.preventDefault();
+              }}
+            >
+              Submit
+            </button>
           </form>
         </div>
       </div>
