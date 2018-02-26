@@ -38,8 +38,7 @@ class Chat extends Component {
   render() {
     const { match, messages, userList } = this.props;
     const userId = match && match.params && match.params.id;
-    const { people, input } = this.state;
-    const lines = (people && people[userId]) || [];
+    const { input } = this.state;
     const userListMap = userList.reduce((result, ele) => {
       return {
         ...result,
@@ -63,7 +62,7 @@ class Chat extends Component {
             return (
               <div
                 className={
-                  msg.creatorId === parseInt(userId) ? "name" : "myname"
+                  msg.creatorId === parseInt(userId, 10) ? "name" : "myname"
                 }
                 key={index}
               >

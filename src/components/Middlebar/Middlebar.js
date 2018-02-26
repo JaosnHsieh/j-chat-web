@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import Contacts from "../Contacts";
+import Groups from "../Groups";
 // import Chat from "../Chat";
 // import Profile from "../Profile";
 
@@ -22,11 +23,8 @@ class Middlebar extends Component {
             path="/contacts"
             component={HOC({ ...this.props }, Contacts)}
           />
-          {/* <Route
-            path="/Chat"
-            component={HOC({ messages, userList }, Chat, "Chat")}
-          />
-          <Route path="/Profile" component={Profile} /> */}
+          <Route path="/groups" component={HOC({ ...this.props }, Groups)} />
+          {/* <Route path="/Profile" component={Profile} />  */}
         </Switch>
       </div>
     );

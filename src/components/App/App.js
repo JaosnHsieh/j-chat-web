@@ -15,6 +15,7 @@ class App extends Component {
     isAuthenticated: false,
     userList: [],
     groupList: [],
+    myGroupList: [],
     messages: [],
     currentUser: null
   };
@@ -23,9 +24,9 @@ class App extends Component {
   }
   addCurrentUserMessage = (userId, messageBody) => {
     const { messages, currentUser } = this.state;
-    console.log("messageBody", messageBody);
-    console.log("messages", messages);
-    console.log("userId", userId);
+    // console.log("messageBody", messageBody);
+    // console.log("messages", messages);
+    // console.log("userId", userId);
     const updatedMessages = {
       ...messages,
       [userId]: [
@@ -44,9 +45,16 @@ class App extends Component {
     });
   };
   getUserInitData = async () => {
-    const [{ data: users }, { data: messages }] = await Promise.all([
+    const [
+      { data: users },
+      { data: messages },
+      { data: groupList },
+      { data: myGroupList }
+    ] = await Promise.all([
       axios.get("/user"),
-      axios.get("/message/user")
+      axios.get("/message/user"),
+      axios.get("/group"),
+      axios.get("/mygroup")
     ]);
     rawMessages = messages;
     this.setState({
@@ -54,8 +62,11 @@ class App extends Component {
         user.avatar = `https://placem.at/people?w=100`;
         return user;
       }),
-      messages: this.formatMessages(rawMessages)
+      messages: this.formatMessages(rawMessages),
+      groupList,
+      myGroupList
     });
+    console.log("this.state", this.state);
   };
   formatMessages = messages => {
     const { currentUser } = this.state;
@@ -173,6 +184,8 @@ class App extends Component {
             messages={messages}
             sendViaWebsocket={this.sendViaWebsocket}
             currentUser={this.state.currentUser}
+            groupList={this.state.groupList}
+            myGroupList={this.state.myGroupList}
           />
         </Switch>
       </div>
