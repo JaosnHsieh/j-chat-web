@@ -24,6 +24,10 @@ class Middlebar extends Component {
             component={HOC({ ...this.props }, Contacts)}
           />
           <Route path="/groups" component={HOC({ ...this.props }, Groups)} />
+          <Route
+            path="/creategroup"
+            component={HOC({ ...this.props }, Groups)}
+          />
           {/* <Route path="/Profile" component={Profile} />  */}
         </Switch>
       </div>

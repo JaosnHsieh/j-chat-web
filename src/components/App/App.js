@@ -22,6 +22,27 @@ class App extends Component {
   async componentDidMount() {
     this.checkIfAlreadyLogined();
   }
+  addOneGroup = group => {
+    const { groupList } = this.state;
+    this.setState({
+      gruopList: [...groupList, group]
+    });
+  };
+  addOneMyGroup = group => {
+    const { myGroupList } = this.state;
+    this.setState({
+      myGroupList: [...myGroupList, group]
+    });
+  };
+  removeOneMyGroup = leavedUserXGroup => {
+    const removedMyGroupList = this.state.myGroupList.filter(ele => {
+      return ele.idno === leavedUserXGroup.groupId ? false : true;
+    });
+    console.log("removedMyGroupList", removedMyGroupList);
+    this.setState({
+      myGroupList: removedMyGroupList
+    });
+  };
   addCurrentUserMessage = (userId, messageBody) => {
     const { messages, currentUser } = this.state;
     // console.log("messageBody", messageBody);
@@ -66,7 +87,7 @@ class App extends Component {
       groupList,
       myGroupList
     });
-    console.log("this.state", this.state);
+    // console.log("this.state", this.state);
   };
   formatMessages = messages => {
     const { currentUser } = this.state;
@@ -186,6 +207,9 @@ class App extends Component {
             currentUser={this.state.currentUser}
             groupList={this.state.groupList}
             myGroupList={this.state.myGroupList}
+            addOneGroup={this.addOneGroup}
+            addOneMyGroup={this.addOneMyGroup}
+            removeOneMyGroup={this.removeOneMyGroup}
           />
         </Switch>
       </div>

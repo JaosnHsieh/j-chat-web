@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import Chat from "../Chat";
 import GroupController from "../GroupController";
+import CreateGroup from "../CreateGroup";
 
 const HOC = (inputProps, Component) => {
   return ({ ...routeProps }) => <Component {...inputProps} {...routeProps} />;
@@ -23,6 +24,7 @@ class RightSidebar extends Component {
             path="/groups/:id"
             component={HOC(this.props, GroupController)}
           />
+          <Route path="/creategroup" component={HOC(this.props, CreateGroup)} />
         </Switch>
       </div>
     );

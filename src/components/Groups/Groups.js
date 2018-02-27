@@ -10,7 +10,9 @@ class Groups extends React.Component {
     return (
       <div>
         <div>
-          <button>建立群組</button>
+          <Link to={`/creategroup`}>
+            <button>建立群組</button>
+          </Link>
         </div>
         myGroupList
         {myGroupList.map(ele => (

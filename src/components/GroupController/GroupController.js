@@ -6,20 +6,35 @@ class GroupController extends Component {
     this.state = {};
   }
   joinGroup = async groupId => {
-    console.log("groupId", groupId);
-    let { data: joinedGroup } = await axios.post("/userxgroup", {
-      groupId
-    });
-    console.log("joinedGroup", joinedGroup);
+    try {
+      const { data: joinedGroup } = await axios.post("/userxgroup", {
+        groupId
+      });
+      const { addOneMyGroup } = this.props;
+
+      // alert(`joined group ${groupId}`);
+      addOneMyGroup(joinedGroup);
+    } catch (err) {
+      console.log("joinGroup error", err);
+    }
   };
   leaveGroup = async groupId => {
-    console.log("groupId", groupId);
-    let { data: leavedGroup } = await axios.delete(`/userxgroup/${groupId}`, {
-      groupId
-    });
-    console.log("leavedGroup", leavedGroup);
+    try {
+      const { data: leavedUserXGroup } = await axios.delete(
+        `/userxgroup/${groupId}`,
+        {
+          groupId
+        }
+      );
+      const { removeOneMyGroup } = this.props;
+      removeOneMyGroup(leavedUserXGroup);
+      // alert(`leaved group ${groupId}`);
+    } catch (err) {
+      console.log("leaveGroup error", err);
+    }
   };
   render() {
+    // console.log("this.props in GroupController", this.props);
     const { match, groupList } = this.props;
     const groupId = match && match.params && match.params.id;
     const formatedGroupList = groupList.reduce((result, ele) => {
