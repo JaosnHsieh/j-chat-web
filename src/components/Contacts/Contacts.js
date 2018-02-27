@@ -9,20 +9,19 @@ class Contacts extends React.Component {
     const { match, userList, messages, currentUser } = this.props;
     return (
       <div>
-        {userList.map(
-          ele =>
-            currentUser.idno === ele.idno ? null : (
-              <div key={ele.idno}>
-                <Link to={`${match.url}/${ele.idno}`}>
-                  <span>
-                    {(messages[ele.idno] && messages[ele.idno].length) || 0}
-                  </span>
-                  <img src={ele.avatar} alt={""} />
-                  {ele.name}
-                </Link>
-              </div>
-            )
-        )}
+        {userList.map(user => {
+          return currentUser.idno === user.idno ? null : (
+            <div key={user.idno}>
+              <Link to={`${match.url}/${user.idno}`}>
+                <span>
+                  {(messages[user.idno] && messages[user.idno].length) || 0}
+                </span>
+                <img src={user.avatar} alt={""} />
+                {user.name}
+              </Link>
+            </div>
+          );
+        })}
         {/* <Route exact path={match.path} render={() => <h2>select topic la</h2>} /> */}
       </div>
     );

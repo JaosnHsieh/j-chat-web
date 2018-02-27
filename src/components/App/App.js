@@ -9,7 +9,6 @@ import AuthButton from "../AuthButton";
 import axios from "../../libs/axios.js";
 import io from "socket.io-client";
 let socket;
-let rawMessages = [];
 class App extends Component {
   state = {
     isAuthenticated: false,
@@ -77,38 +76,36 @@ class App extends Component {
       axios.get("/group"),
       axios.get("/mygroup")
     ]);
-    rawMessages = messages;
     this.setState({
       userList: users.map(user => {
         user.avatar = `https://placem.at/people?w=100`;
         return user;
       }),
-      messages: this.formatMessages(rawMessages),
+      messages: messages,
       groupList,
       myGroupList
     });
-    // console.log("this.state", this.state);
   };
-  formatMessages = messages => {
-    const { currentUser } = this.state;
-    return messages.reduce((result, ele) => {
-      const { senderId, recipientId } = ele;
-      if (senderId === currentUser.idno) {
-        return {
-          ...result,
-          [recipientId]: result[`${recipientId}`]
-            ? [...result[recipientId], ele.ChatMessage]
-            : [ele.ChatMessage]
-        };
-      }
-      return {
-        ...result,
-        [senderId]: result[`${senderId}`]
-          ? [...result[senderId], ele.ChatMessage]
-          : [ele.ChatMessage]
-      };
-    }, {});
-  };
+  // formatMessages = messages => {
+  //   const { currentUser } = this.state;
+  //   return messages.reduce((result, ele) => {
+  //     const { senderId, recipientId } = ele;
+  //     if (senderId === currentUser.idno) {
+  //       return {
+  //         ...result,
+  //         [recipientId]: result[`${recipientId}`]
+  //           ? [...result[recipientId], ele.ChatMessage]
+  //           : [ele.ChatMessage]
+  //       };
+  //     }
+  //     return {
+  //       ...result,
+  //       [senderId]: result[`${senderId}`]
+  //         ? [...result[senderId], ele.ChatMessage]
+  //         : [ele.ChatMessage]
+  //     };
+  //   }, {});
+  // };
   checkIfAlreadyLogined = async () => {
     try {
       let { data: currentUser } = await axios.get("/login");
@@ -132,9 +129,13 @@ class App extends Component {
   listenToWebsocket = () => {
     socket = io("localhost:3030");
     socket.on("my message", data => {
-      rawMessages.push(data);
+      const { messages } = this.state;
+      const updatedMessages = {
+        ...messages,
+        [data.senderId]: [...messages[data.senderId], data.ChatMessage]
+      };
       this.setState({
-        messages: this.formatMessages(rawMessages)
+        messages: updatedMessages
       });
     });
   };
