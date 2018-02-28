@@ -17,7 +17,7 @@ class Groups extends React.Component {
         myGroupList
         {myGroupList.map(ele => (
           <div key={ele.idno}>
-            <Link to={`${match.url}/${ele.idno}`}>
+            <Link to={`/groups/${ele.idno}`}>
               <span />
               {/* <img src={ele.avatar} alt={""} /> */}
               {ele.name}
@@ -27,7 +27,7 @@ class Groups extends React.Component {
         All groupList
         {groupList.map(ele => (
           <div key={ele.idno}>
-            <Link to={`${match.url}/${ele.idno}`}>
+            <Link to={`/groups/${ele.idno}`}>
               <span />
               {/* <img src={ele.avatar} alt={""} /> */}
               {ele.name}

@@ -24,7 +24,11 @@ class RightSidebar extends Component {
             path="/groups/:id"
             component={HOC(this.props, GroupController)}
           />
-          <Route path="/creategroup" component={HOC(this.props, CreateGroup)} />
+          <Route
+            exact
+            path="/creategroup"
+            component={HOC(this.props, CreateGroup)}
+          />
         </Switch>
       </div>
     );
