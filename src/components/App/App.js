@@ -24,7 +24,7 @@ class App extends Component {
   addOneGroup = group => {
     const { groupList } = this.state;
     this.setState({
-      gruopList: [...groupList, group]
+      groupList: [...groupList, group]
     });
   };
   addOneMyGroup = group => {
@@ -47,19 +47,36 @@ class App extends Component {
     // console.log("messageBody", messageBody);
     // console.log("messages", messages);
     // console.log("userId", userId);
-    const updatedMessages = {
-      ...messages,
-      [userId]: [
-        ...messages[userId],
-        {
-          messageBody,
-          creatorId: currentUser.idno,
-          createdAt: new Date().toISOString()
-        }
-      ].sort(function(a, b) {
-        return new Date(a.createdAt) - new Date(b.createdAt);
-      })
-    };
+    let updatedMessages;
+    if (messages[userId]) {
+      updatedMessages = {
+        ...messages,
+        [userId]: [
+          ...messages[userId],
+          {
+            messageBody,
+            creatorId: currentUser.idno,
+            createdAt: new Date().toISOString()
+          }
+        ].sort(function(a, b) {
+          return new Date(a.createdAt) - new Date(b.createdAt);
+        })
+      };
+    } else {
+      updatedMessages = {
+        ...messages,
+        [userId]: [
+          {
+            messageBody,
+            creatorId: currentUser.idno,
+            createdAt: new Date().toISOString()
+          }
+        ].sort(function(a, b) {
+          return new Date(a.createdAt) - new Date(b.createdAt);
+        })
+      };
+    }
+
     this.setState({
       messages: updatedMessages
     });
@@ -128,6 +145,7 @@ class App extends Component {
   };
   listenToWebsocket = () => {
     socket = io("localhost:3030");
+    console.log("connecting websocket!!!...");
     socket.on("my message", data => {
       const { messages } = this.state;
       const updatedMessages = {
@@ -140,7 +158,7 @@ class App extends Component {
     });
   };
   sendViaWebsocket = (idno, msg) => {
-    socket.emit("toSomeone", idno, msg);
+    socket.send({ type: "user", idno, msg });
     this.addCurrentUserMessage(idno, msg);
   };
   onLogined = async ({ username, password }) => {

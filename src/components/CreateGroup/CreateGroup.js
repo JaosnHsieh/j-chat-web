@@ -27,8 +27,11 @@ class CreateGroup extends React.Component {
   createGroup = async ({ name, desc }) => {
     try {
       const { data: newGroup } = await axios.post("/group", { name, desc });
+      const { addOneGroup } = this.props;
+
       alert(`created group ${newGroup.name}`);
       this.joinGroup(newGroup.idno);
+      addOneGroup(newGroup);
     } catch (err) {
       console.log("createGroup error", err);
     }
@@ -46,8 +49,6 @@ class CreateGroup extends React.Component {
     }
   };
   render() {
-    console.log("this.props in CreateGroup", this.props);
-
     return (
       <div>
         <form onSubmit={this.onSubmit}>

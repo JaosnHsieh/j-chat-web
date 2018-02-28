@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 class Groups extends React.Component {
   render() {
-    const { match, groupList, myGroupList } = this.props;
+    const { groupList, myGroupList } = this.props;
     return (
       <div>
         <div>
