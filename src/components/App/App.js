@@ -13,10 +13,11 @@ class App extends Component {
   state = {
     isAuthenticated: false,
     userList: [],
+    messages: [],
+    currentUser: null,
     groupList: [],
     myGroupList: [],
-    messages: [],
-    currentUser: null
+    groupMessages: []
   };
   async componentDidMount() {
     this.checkIfAlreadyLogined();
@@ -86,13 +87,20 @@ class App extends Component {
       { data: users },
       { data: messages },
       { data: groupList },
-      { data: myGroupList }
+      { data: myGroupList },
+      { data: groupMessages }
     ] = await Promise.all([
       axios.get("/user"),
       axios.get("/message/user"),
       axios.get("/group"),
-      axios.get("/mygroup")
+      axios.get("/mygroup"),
+      axios.get("/message/group")
     ]);
+    console.log("messages", messages);
+    if (myGroupList && Array.isArray(myGroupList) && myGroupList.length > 0) {
+      const groupIds = myGroupList.map(group => group.idno);
+      socket.emit(`join-channels`, groupIds);
+    }
     this.setState({
       userList: users.map(user => {
         user.avatar = `https://placem.at/people?w=100`;
@@ -100,7 +108,8 @@ class App extends Component {
       }),
       messages: messages,
       groupList,
-      myGroupList
+      myGroupList,
+      groupMessages
     });
   };
   // formatMessages = messages => {
@@ -146,11 +155,14 @@ class App extends Component {
   listenToWebsocket = () => {
     socket = io("localhost:3030");
     console.log("connecting websocket!!!...");
-    socket.on("my message", data => {
+    socket.on("my message", comingMsg => {
       const { messages } = this.state;
       const updatedMessages = {
         ...messages,
-        [data.senderId]: [...messages[data.senderId], data.ChatMessage]
+        [comingMsg.senderId]: [
+          ...messages[comingMsg.senderId],
+          comingMsg.ChatMessage
+        ]
       };
       this.setState({
         messages: updatedMessages

@@ -6,9 +6,24 @@ import { Link } from "react-router-dom";
 
 class Contacts extends React.Component {
   render() {
-    const { match, userList, messages, currentUser } = this.props;
+    const { match, userList, messages, currentUser, myGroupList } = this.props;
     return (
       <div>
+        joined Groups
+        {myGroupList.map(group => {
+          return (
+            <div key={group.idno}>
+              <Link to={`${match.url}/${group.idno}`}>
+                {/* <span>
+                  {(messages[user.idno] && messages[user.idno].length) || 0}
+                </span> */}
+                {/* <img src={user.avatar} alt={""} /> */}
+                {group.name}
+              </Link>
+            </div>
+          );
+        })}
+        User List
         {userList.map(user => {
           return currentUser.idno === user.idno ? null : (
             <div key={user.idno}>
