@@ -1,6 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-
+import "./style.css";
 class Login extends React.Component {
   state = {
     username: "jason1",
@@ -29,7 +29,7 @@ class Login extends React.Component {
     }
 
     return (
-      <div>
+      <div class="login-div">
         <form
           onSubmit={e => {
             this.onSubmit(e, onLogined);

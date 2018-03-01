@@ -1,0 +1,11 @@
+.protected-div {
+  display: grid;
+  grid-area: c d;
+  grid-template-rows: 1fr 9fr;
+  height: 100%;
+  width: 100%;
+  grid-gap: 2px;
+  grid-template-areas:
+    "c"
+    "d";
+}

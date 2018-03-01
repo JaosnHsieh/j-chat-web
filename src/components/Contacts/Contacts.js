@@ -1,14 +1,13 @@
 import React from "react";
 // import faker from "faker";
 import { Link } from "react-router-dom";
-// import Chat from "./Chat.js";
-// import axios from "../../libs/axios.js";
+import "./style.css";
 
 class Contacts extends React.Component {
   render() {
     const { match, userList, messages, currentUser, myGroupList } = this.props;
     return (
-      <div>
+      <div className="contact-div">
         joined Groups
         {myGroupList.map(group => {
           return (

@@ -1,0 +1,5 @@
+.auth-div {
+  grid-area: a;
+  align-self: center;
+  justify-self: center;
+}

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import TabButton from "../TabButton";
-
+import "./style.css";
 class Sidebar extends Component {
   constructor(props) {
     super(props);

@@ -249,7 +249,7 @@ class App extends Component {
   render() {
     const { userList, messages, isAuthenticated, currentUser } = this.state;
     return (
-      <div>
+      <div className="wrapper">
         <AuthButton
           isAuthenticated={isAuthenticated}
           onLogout={this.onLogout}

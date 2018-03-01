@@ -1,10 +1,10 @@
 import React from "react";
 import { withRouter, Link } from "react-router-dom";
-
+import "./style.css";
 const AuthButton = withRouter(
   ({ history, isAuthenticated, onLogout, currentUser }) =>
     isAuthenticated ? (
-      <p className="logined">
+      <div className="auth-div">
         Hi, {currentUser && currentUser.username}
         <button
           onClick={() => {
@@ -13,12 +13,19 @@ const AuthButton = withRouter(
         >
           Sign out
         </button>
-      </p>
+      </div>
     ) : (
-      <p>
-        You are not logged in. <Link to="/signup"> Sign Up </Link>{" "}
-        <Link to="/login"> Login </Link>
-      </p>
+      <div className="auth-div">
+        <p className="center">You are not logged in.</p>{" "}
+        <Link className="center" to="/signup">
+          {" "}
+          Sign Up{" "}
+        </Link>{" "}
+        <Link className="center" to="/login">
+          {" "}
+          Login{" "}
+        </Link>
+      </div>
     )
 );
 

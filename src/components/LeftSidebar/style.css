@@ -1,0 +1,6 @@
+.left-sidebar {
+  display: grid;
+  grid-area: c;
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
+}
