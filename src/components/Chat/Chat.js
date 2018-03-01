@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import "./style.css";
 class Chat extends Component {
   constructor(props) {
     super(props);
@@ -42,7 +42,7 @@ class Chat extends Component {
     }, {});
     const dateStringToshow = [];
     return (
-      <div className={`chat-container`}>
+      <div className={`chat-div`}>
         {showingMessages[id] &&
           showingMessages[id].map((msg, index) => {
             const dateObj = new Date(msg.createdAt);
