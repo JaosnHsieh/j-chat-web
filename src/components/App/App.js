@@ -43,6 +43,44 @@ class App extends Component {
       myGroupList: removedMyGroupList
     });
   };
+  addCurrentGroupMessage = (groupId, messageBody) => {
+    const { groupMessages, currentUser } = this.state;
+    // console.log("messageBody", messageBody);
+    // console.log("messages", messages);
+    // console.log("userId", userId);
+    let updatedMessages;
+    if (groupMessages[groupId]) {
+      updatedMessages = {
+        ...groupMessages,
+        [groupId]: [
+          ...groupMessages[groupId],
+          {
+            messageBody,
+            creatorId: currentUser.idno,
+            createdAt: new Date().toISOString()
+          }
+        ].sort(function(a, b) {
+          return new Date(a.createdAt) - new Date(b.createdAt);
+        })
+      };
+    } else {
+      updatedMessages = {
+        ...groupMessages,
+        [groupId]: [
+          {
+            messageBody,
+            creatorId: currentUser.idno,
+            createdAt: new Date().toISOString()
+          }
+        ].sort(function(a, b) {
+          return new Date(a.createdAt) - new Date(b.createdAt);
+        })
+      };
+    }
+    this.setState({
+      groupMessages: updatedMessages
+    });
+  };
   addCurrentUserMessage = (userId, messageBody) => {
     const { messages, currentUser } = this.state;
     // console.log("messageBody", messageBody);
@@ -96,11 +134,7 @@ class App extends Component {
       axios.get("/mygroup"),
       axios.get("/message/group")
     ]);
-    console.log("messages", messages);
-    if (myGroupList && Array.isArray(myGroupList) && myGroupList.length > 0) {
-      const groupIds = myGroupList.map(group => group.idno);
-      socket.emit(`join-channels`, groupIds);
-    }
+    this.joinGroupsChannel(myGroupList);
     this.setState({
       userList: users.map(user => {
         user.avatar = `https://placem.at/people?w=100`;
@@ -112,26 +146,12 @@ class App extends Component {
       groupMessages
     });
   };
-  // formatMessages = messages => {
-  //   const { currentUser } = this.state;
-  //   return messages.reduce((result, ele) => {
-  //     const { senderId, recipientId } = ele;
-  //     if (senderId === currentUser.idno) {
-  //       return {
-  //         ...result,
-  //         [recipientId]: result[`${recipientId}`]
-  //           ? [...result[recipientId], ele.ChatMessage]
-  //           : [ele.ChatMessage]
-  //       };
-  //     }
-  //     return {
-  //       ...result,
-  //       [senderId]: result[`${senderId}`]
-  //         ? [...result[senderId], ele.ChatMessage]
-  //         : [ele.ChatMessage]
-  //     };
-  //   }, {});
-  // };
+  joinGroupsChannel = myGroupList => {
+    if (myGroupList && Array.isArray(myGroupList) && myGroupList.length > 0) {
+      const groupIds = myGroupList.map(group => group.idno);
+      socket.emit(`join-channels`, groupIds);
+    }
+  };
   checkIfAlreadyLogined = async () => {
     try {
       let { data: currentUser } = await axios.get("/login");
@@ -154,24 +174,52 @@ class App extends Component {
   };
   listenToWebsocket = () => {
     socket = io("localhost:3030");
-    console.log("connecting websocket!!!...");
-    socket.on("my message", comingMsg => {
-      const { messages } = this.state;
-      const updatedMessages = {
-        ...messages,
-        [comingMsg.senderId]: [
-          ...messages[comingMsg.senderId],
-          comingMsg.ChatMessage
-        ]
-      };
-      this.setState({
-        messages: updatedMessages
-      });
+    socket.on("my message", ({ msg, chatType }) => {
+      switch (chatType) {
+        case "user":
+          this.addOneMessageToUser(msg);
+          break;
+        case "group":
+          this.addOneMessageToGroup(msg);
+          break;
+        default:
+          return;
+      }
     });
   };
-  sendViaWebsocket = (idno, msg) => {
-    socket.send({ type: "user", idno, msg });
-    this.addCurrentUserMessage(idno, msg);
+  addOneMessageToUser = msg => {
+    const { messages } = this.state;
+    const updatedMessages = {
+      ...messages,
+      [msg.senderId]: [...messages[msg.senderId], msg.ChatMessage]
+    };
+    this.setState({
+      messages: updatedMessages
+    });
+  };
+  addOneMessageToGroup = msg => {
+    const { groupMessages } = this.state;
+    const updatedMessages = {
+      ...groupMessages,
+      [msg.groupId]: [...groupMessages[msg.groupId], msg.ChatMessage]
+    };
+    this.setState({
+      groupMessages: updatedMessages
+    });
+  };
+  sendViaWebsocket = (idno, msg, chatType) => {
+    socket.send({ chatType, idno, msg });
+    switch (chatType) {
+      case "user":
+        this.addCurrentUserMessage(idno, msg);
+        break;
+      case "group":
+        this.addCurrentGroupMessage(idno, msg);
+
+        break;
+      default:
+        return;
+    }
   };
   onLogined = async ({ username, password }) => {
     try {
@@ -241,6 +289,7 @@ class App extends Component {
             addOneGroup={this.addOneGroup}
             addOneMyGroup={this.addOneMyGroup}
             removeOneMyGroup={this.removeOneMyGroup}
+            groupMessages={this.state.groupMessages}
           />
         </Switch>
       </div>

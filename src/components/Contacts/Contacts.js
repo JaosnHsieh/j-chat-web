@@ -13,7 +13,7 @@ class Contacts extends React.Component {
         {myGroupList.map(group => {
           return (
             <div key={group.idno}>
-              <Link to={`${match.url}/${group.idno}`}>
+              <Link to={`${match.url}/group/${group.idno}`}>
                 {/* <span>
                   {(messages[user.idno] && messages[user.idno].length) || 0}
                 </span> */}
@@ -27,7 +27,7 @@ class Contacts extends React.Component {
         {userList.map(user => {
           return currentUser.idno === user.idno ? null : (
             <div key={user.idno}>
-              <Link to={`${match.url}/${user.idno}`}>
+              <Link to={`${match.url}/user/${user.idno}`}>
                 <span>
                   {(messages[user.idno] && messages[user.idno].length) || 0}
                 </span>

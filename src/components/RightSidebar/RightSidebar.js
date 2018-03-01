@@ -19,7 +19,10 @@ class RightSidebar extends Component {
     return (
       <div className="right-sidebar">
         <Switch>
-          <Route path="/contacts/:id" component={HOC(this.props, Chat)} />
+          <Route
+            path="/contacts/:chatType/:id"
+            component={HOC(this.props, Chat)}
+          />
           <Route
             path="/groups/:id"
             component={HOC(this.props, GroupController)}

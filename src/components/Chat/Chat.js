@@ -8,25 +8,12 @@ class Chat extends Component {
       people: {}
     };
   }
-  onSubmit = userId => {
+  onSubmit = (userId, chatType) => {
     const { input } = this.state;
-    this.props.sendViaWebsocket(userId, input);
+    this.props.sendViaWebsocket(userId, input, chatType);
     this.setState({
       input: ""
     });
-  };
-  addInputToLines = userId => {
-    // const { people } = this.state;
-    // const userLines = this.state.people[userId] || [];
-    // const updatedLines = [...userLines, this.state.input];
-    // this.props.sendViaWebsocket(userId, this.state.input);
-    // this.setState({
-    //   people: {
-    //     ...people,
-    //     [userId]: updatedLines
-    //   },
-    //   input: ""
-    // });
   };
   onInputChange = event => {
     const input = event.target.value;
@@ -36,8 +23,16 @@ class Chat extends Component {
   };
 
   render() {
-    const { match, messages, userList } = this.props;
-    const userId = match && match.params && match.params.id;
+    const {
+      match,
+      messages,
+      userList,
+      groupMessages,
+      currentUser
+    } = this.props;
+    const id = match && match.params && match.params.id; // cloud be user.id or group.id depends on route
+    const chatType = match && match.params && match.params.chatType;
+    const showingMessages = chatType === "user" ? messages : groupMessages; // user or group
     const { input } = this.state;
     const userListMap = userList.reduce((result, ele) => {
       return {
@@ -46,11 +41,10 @@ class Chat extends Component {
       };
     }, {});
     const dateStringToshow = [];
-    // console.log("addCurrentUserMessage", addCurrentUserMessage);
     return (
       <div className={`chat-container`}>
-        {messages[userId] &&
-          messages[userId].map((msg, index) => {
+        {showingMessages[id] &&
+          showingMessages[id].map((msg, index) => {
             const dateObj = new Date(msg.createdAt);
             const dateString = dateObj.toLocaleDateString();
             const timeString = dateObj.toLocaleTimeString();
@@ -62,7 +56,9 @@ class Chat extends Component {
             return (
               <div
                 className={
-                  msg.creatorId === parseInt(userId, 10) ? "name" : "myname"
+                  msg.creatorId === parseInt(currentUser.idno, 10)
+                    ? "myname"
+                    : "name"
                 }
                 key={index}
               >
@@ -77,7 +73,7 @@ class Chat extends Component {
         <div className={`chat-input`}>
           <form
             onSubmit={event => {
-              this.onSubmit(userId);
+              this.onSubmit(id, chatType);
               event.preventDefault();
             }}
           >
@@ -94,7 +90,7 @@ class Chat extends Component {
             <button
               type="button"
               onClick={event => {
-                this.onSubmit(userId);
+                this.onSubmit(id, chatType);
                 event.preventDefault();
               }}
             >
