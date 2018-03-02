@@ -11,9 +11,9 @@ class Signup extends React.Component {
       name: ""
     };
   }
-  componentDidMount(){
+  componentDidMount() {
     this.input.focus();
-}
+  }
   onUsernameChange = e => {
     this.setState({
       username: e.target.value
@@ -48,38 +48,42 @@ class Signup extends React.Component {
       <div className="signup-div">
         <form onSubmit={this.onSubmit(onSingupComplete)}>
           <div>
-              <input
-                placeholder="username"
-                type="text"
-                className="input"
-                value={this.state.username}
-                onChange={this.onUsernameChange}
-                ref={(input)=>{ this.input = input;}}
-              />
+            <input
+              placeholder="username"
+              type="text"
+              className="input"
+              value={this.state.username}
+              onChange={this.onUsernameChange}
+              ref={input => {
+                this.input = input;
+              }}
+            />
           </div>
           <div>
-              <input
-                placeholder="password"
-                className="input"
-                type="password"
-                value={this.state.password}
-                onChange={this.onPasswordChange}
-              />
+            <input
+              placeholder="password"
+              className="input"
+              type="password"
+              value={this.state.password}
+              onChange={this.onPasswordChange}
+            />
           </div>
           <div>
-              <input
-                placeholder="name"
-                className="input"
-                type="text"
-                value={this.state.name}
-                onChange={this.onNameChange}
-              />
+            <input
+              placeholder="name"
+              className="input"
+              type="text"
+              value={this.state.name}
+              onChange={this.onNameChange}
+            />
           </div>
-          <input className="submit-btn" type="submit" value="Signup"/>
-          <p className="message">Already registerd? 
-          <Link className="center" to="/login">
-          Login
-        </Link></p>
+          <input className="submit-btn" type="submit" value="Signup" />
+          <p className="message">
+            Already registerd?
+            <Link className="center" to="/login">
+              Login
+            </Link>
+          </p>
         </form>
       </div>
     );

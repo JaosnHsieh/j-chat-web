@@ -1,5 +1,47 @@
 .auth-div {
   grid-area: a;
-  align-self: center;
+  display: grid;
+}
+.logined {
+  background: #35323c;
+  width: 100%;
+  height: 100%;
+}
+.auth-div .status-div {
+  color: #fff;
+  margin: 5px;
+  font-weight: 300;
+  font-size: 1.3em;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+.auth-div .status-div .logo {
+  text-align: center;
+  /* justify-self: center; */
+  width: 100%;
+}
+.auth-div .status-div .logo img {
+  width: 50%;
+}
+.auth-div .status-div .name-div {
   justify-self: center;
+  align-self: center;
+}
+.auth-div .logout-btn {
+  color: #666;
+  cursor: default;
+  text-decoration: none;
+  background: #f8f8f8;
+  border: 1px solid #c6c6c6;
+  margin: 0 20px;
+  white-space: nowrap;
+}
+
+p.credit {
+  font-size: 10px;
+}
+p.credit a {
+  color: white;
 }

@@ -1,14 +1,12 @@
-body{
-  
-    background: #c5eeaf; 
-    background: -webkit-linear-gradient(right, #eff5ec, #f9fdf7);
-    background: -moz-linear-gradient(right, #eff5ec, #f9fdf7);
-    background: -o-linear-gradient(right, #eff5ec, #f9fdf7);
-    background: linear-gradient(to left, #eff5ec, #f9fdf7);
-    font-family: "Roboto", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;      
-  
+body {
+  background: #c5eeaf;
+  background: -webkit-linear-gradient(right, #eff5ec, #f9fdf7);
+  background: -moz-linear-gradient(right, #eff5ec, #f9fdf7);
+  background: -o-linear-gradient(right, #eff5ec, #f9fdf7);
+  background: linear-gradient(to left, #eff5ec, #f9fdf7);
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 .wrapper {
   padding: 20px 30px;
@@ -23,6 +21,7 @@ body{
   grid-template-areas:
     "a"
     "b";
+  overflow: hidden;
 }
 .center {
   align-self: center;
