@@ -48,6 +48,9 @@ class Login extends React.Component {
               ref={input => {
                 this.input = input;
               }}
+              pattern=".{4,}"
+              title="4 characters minimum"
+              required
             />
           </div>
           <div>
@@ -58,6 +61,9 @@ class Login extends React.Component {
               value={this.state.password}
               onChange={this.passwordOnChange}
               type="password"
+              pattern=".{4,}"
+              title="4 characters minimum"
+              required
             />
           </div>
           <input className="submit-btn" type="submit" value="Login" />

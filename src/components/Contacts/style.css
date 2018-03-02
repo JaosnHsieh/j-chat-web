@@ -1,3 +1,35 @@
 .contact-div {
   display: grid;
+  padding: 10px 30px;
+}
+.contact-div img.avatar {
+  border-radius: 50%;
+}
+.contact-div .user-div {
+  padding: 10px;
+  border-bottom: 2px solid #bcc5b8;
+}
+
+.user-div > a,
+.user-div > a:visited,
+.user-div > a:hover,
+.user-div > a:active {
+  color: inherit;
+  display: grid;
+  grid-template-columns: 1fr 10fr 10fr;
+  text-decoration: none !important;
+}
+
+span.message-count {
+  margin-left: 20px;
+  text-align: center;
+  display: inline-block;
+  background: #df3a5e;
+  font-size: 12px;
+  font-weight: 700;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  border-radius: 50%;
+  color: #ffffff;
 }

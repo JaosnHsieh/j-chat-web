@@ -86,6 +86,7 @@ class Chat extends Component {
                   node.focus();
                 }
               }}
+              required
             />
             <button
               type="button"

@@ -8,7 +8,7 @@ class Contacts extends React.Component {
     const { match, userList, messages, currentUser, myGroupList } = this.props;
     return (
       <div className="contact-div">
-        joined Groups
+        My Groups({myGroupList.length})
         {myGroupList.map(group => {
           return (
             <div key={group.idno}>
@@ -22,16 +22,22 @@ class Contacts extends React.Component {
             </div>
           );
         })}
-        User List
+        <p className="header">All Users</p>
         {userList.map(user => {
           return currentUser.idno === user.idno ? null : (
-            <div key={user.idno}>
+            <div className="user-div" key={user.idno}>
               <Link to={`${match.url}/user/${user.idno}`}>
-                <span>
-                  {(messages[user.idno] && messages[user.idno].length) || 0}
-                </span>
-                <img src={user.avatar} alt={""} />
-                {user.name}
+                <img
+                  className="avatar center"
+                  src={`https://placem.at/people?w=100&txt=0&random=${Math.random()}`}
+                  alt={""}
+                />
+                <div className="name-desc-div">
+                  {user.name}
+                  <span className="message-count">
+                    {(messages[user.idno] && messages[user.idno].length) || 0}
+                  </span>
+                </div>
               </Link>
             </div>
           );
