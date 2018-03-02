@@ -1,12 +1,14 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect,Link } from "react-router-dom";
 import "./style.css";
 class Login extends React.Component {
   state = {
-    username: "jason1",
-    password: "1234"
+    username: "",
+    password: ""
   };
-
+  componentDidMount(){
+      this.input.focus();
+  }
   onSubmit = async (e, onLogined) => {
     e.preventDefault();
     onLogined({ ...this.state });
@@ -22,6 +24,7 @@ class Login extends React.Component {
     });
   };
   render() {
+    console.log('rendering');
     const { onLogined, isAuthenticated } = this.props;
 
     if (isAuthenticated) {
@@ -29,33 +32,35 @@ class Login extends React.Component {
     }
 
     return (
-      <div class="login-div">
+      <div className="login-page">
         <form
           onSubmit={e => {
             this.onSubmit(e, onLogined);
           }}
         >
           <div>
-            <label>
-              username:
               <input
+                placeholder="username"
+                className="input"
                 value={this.state.username}
                 onChange={this.usernameOnChange}
                 type="text"
+                ref={(input)=>{ this.input = input;}}
               />
-            </label>
           </div>
-          <div>
-            <label>
-              password:
-              <input
+          <div>              <input
+                placeholder="password"
+                className="input"
                 value={this.state.password}
                 onChange={this.passwordOnChange}
                 type="password"
               />
-            </label>
           </div>
-          <input type="submit" />
+          <input className="submit-btn" type="submit" />
+          <p className="message">Not registered? 
+          <Link className="center" to="/signup">
+          Create an account
+        </Link></p>
         </form>
       </div>
     );

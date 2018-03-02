@@ -1,6 +1,7 @@
 import React from "react";
 import { withRouter, Link } from "react-router-dom";
 import "./style.css";
+import logo from "../../static/img/jchat-logo.png";
 const AuthButton = withRouter(
   ({ history, isAuthenticated, onLogout, currentUser }) =>
     isAuthenticated ? (
@@ -16,7 +17,8 @@ const AuthButton = withRouter(
       </div>
     ) : (
       <div className="auth-div">
-        <p className="center">You are not logged in.</p>{" "}
+      <img src={logo}/>
+        {/* <p className="center">You are not logged in.</p>{" "}
         <Link className="center" to="/signup">
           {" "}
           Sign Up{" "}
@@ -24,7 +26,7 @@ const AuthButton = withRouter(
         <Link className="center" to="/login">
           {" "}
           Login{" "}
-        </Link>
+        </Link> */}
       </div>
     )
 );

@@ -242,9 +242,7 @@ class App extends Component {
     cb();
   };
   onSingupComplete = () => {
-    this.setState({
-      isAuthenticated: true
-    });
+    this.checkIfAlreadyLogined();
   };
   render() {
     const { userList, messages, isAuthenticated, currentUser } = this.state;
