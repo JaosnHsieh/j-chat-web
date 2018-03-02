@@ -9,7 +9,30 @@
   padding: 10px;
   border-bottom: 2px solid #bcc5b8;
 }
+.name-desc-div {
+  align-self: start;
+  justify-self: left;
+  margin-left: 20px;
+}
 
+.name-desc-div .name {
+  font-size: 1.3em;
+  margin-left: 10px;
+}
+
+.name-desc-div .user-last-message {
+  font-size: 0.8em;
+  color: gray;
+  margin-top: 5px;
+  margin-left: 15px;
+}
+
+.name-desc-div .group-desc {
+  font-size: 0.8em;
+  color: gray;
+  margin-top: 5px;
+  margin-left: 15px;
+}
 .user-div > a,
 .user-div > a:visited,
 .user-div > a:hover,
@@ -18,6 +41,20 @@
   display: grid;
   grid-template-columns: 1fr 10fr 10fr;
   text-decoration: none !important;
+}
+
+.group-div > a,
+.group-div > a:visited,
+.group-div > a:hover,
+.group-div > a:active {
+  color: inherit;
+  display: grid;
+  grid-template-columns: 1fr 10fr 10fr;
+  text-decoration: none !important;
+}
+
+.group-div img.group-img {
+  width: 100px;
 }
 
 span.message-count {

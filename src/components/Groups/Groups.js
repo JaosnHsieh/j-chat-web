@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 // import Chat from "./Chat.js";
 // import axios from "../../libs/axios.js";
-
+import groupIcon from "../../static/img/team-icon.png";
 class Groups extends React.Component {
   render() {
     const { groupList, myGroupList } = this.props;
@@ -14,26 +14,38 @@ class Groups extends React.Component {
             <button>建立群組</button>
           </Link>
         </div>
-        myGroupList
-        {myGroupList.map(ele => (
-          <div key={ele.idno}>
-            <Link to={`/groups/${ele.idno}`}>
-              <span />
-              {/* <img src={ele.avatar} alt={""} /> */}
-              {ele.name}
-            </Link>
-          </div>
-        ))}
+        My Groups({myGroupList.length})
+        {myGroupList.map(group => {
+          return (
+            <div className="group-div" key={group.idno}>
+              <Link to={`/groups/${group.idno}`}>
+                <img className="group-img center" src={groupIcon} alt={""} />
+                <div className="name-desc-div">
+                  <div>
+                    <span className="name">{group.name}(0)</span>
+                  </div>
+                  <div className="group-desc">{group.desc}</div>
+                </div>
+              </Link>
+            </div>
+          );
+        })}
         All groupList
-        {groupList.map(ele => (
-          <div key={ele.idno}>
-            <Link to={`/groups/${ele.idno}`}>
-              <span />
-              {/* <img src={ele.avatar} alt={""} /> */}
-              {ele.name}
-            </Link>
-          </div>
-        ))}
+        {groupList.map(group => {
+          return (
+            <div className="group-div" key={group.idno}>
+              <Link to={`/groups/${group.idno}`}>
+                <img className="group-img center" src={groupIcon} alt={""} />
+                <div className="name-desc-div">
+                  <div>
+                    <span className="name">{group.name}(0)</span>
+                  </div>
+                  <div className="group-desc">{group.desc}</div>
+                </div>
+              </Link>
+            </div>
+          );
+        })}
       </div>
     );
   }
