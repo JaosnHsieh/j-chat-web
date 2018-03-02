@@ -56,7 +56,7 @@ class Login extends React.Component {
                 type="password"
               />
           </div>
-          <input className="submit-btn" type="submit" />
+          <input className="submit-btn" type="submit" value="Login"/>
           <p className="message">Not registered? 
           <Link className="center" to="/signup">
           Create an account
