@@ -173,7 +173,7 @@ class App extends Component {
     }
   };
   listenToWebsocket = () => {
-    socket = io("localhost:3030");
+    socket = io("45.32.119.183:3030");
     socket.on("my message", ({ msg, chatType }) => {
       switch (chatType) {
         case "user":
@@ -208,6 +208,7 @@ class App extends Component {
     });
   };
   sendViaWebsocket = (idno, msg, chatType) => {
+    console.log(idno, msg, chatType);
     socket.send({ chatType, idno, msg });
     switch (chatType) {
       case "user":
