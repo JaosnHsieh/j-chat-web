@@ -3,8 +3,8 @@ import { Redirect, Link } from "react-router-dom";
 import "./style.css";
 class Login extends React.Component {
   state = {
-    username: "",
-    password: ""
+    username: "jason1",
+    password: "1234"
   };
   componentDidMount() {
     this.input.focus();
