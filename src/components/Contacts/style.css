@@ -49,7 +49,7 @@
 .group-div > a:active {
   color: inherit;
   display: grid;
-  grid-template-columns: 1fr 10fr 10fr;
+  grid-template-columns: 1fr 8fr 1fr;
   text-decoration: none !important;
 }
 

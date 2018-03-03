@@ -8,6 +8,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 .wrapper {
   padding: 20px 30px;
   box-sizing: border-box;
@@ -27,7 +28,11 @@ body {
   align-self: center;
   justify-self: center;
 }
-
+@media only screen and (max-width: 500px) {
+  .wrapper {
+    padding: 0px;
+  }
+}
 /*  */
 /* .App {
   text-align: center;
