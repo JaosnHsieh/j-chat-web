@@ -4,11 +4,12 @@ import { Link } from "react-router-dom";
 // import Chat from "./Chat.js";
 // import axios from "../../libs/axios.js";
 import groupIcon from "../../static/img/team-icon.png";
+import "./style.css";
 class Groups extends React.Component {
   render() {
     const { groupList, myGroupList } = this.props;
     return (
-      <div>
+      <div className="groups-div">
         <div>
           <Link to={`/creategroup`}>
             <button>建立群組</button>

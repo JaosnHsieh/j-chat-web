@@ -1,6 +1,8 @@
 .contact-div {
   display: grid;
   padding: 10px 30px;
+  height: 60vh;
+  overflow-y: scroll;
 }
 .contact-div img.avatar {
   border-radius: 50%;

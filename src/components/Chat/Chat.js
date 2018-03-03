@@ -42,34 +42,51 @@ class Chat extends Component {
     }, {});
     const dateStringToshow = [];
     return (
-      <div className={`chat-div`}>
-        {showingMessages[id] &&
-          showingMessages[id].map((msg, index) => {
-            const dateObj = new Date(msg.createdAt);
-            const dateString = dateObj.toLocaleDateString();
-            const timeString = dateObj.toLocaleTimeString();
-            const lastDateString =
-              dateStringToshow[dateStringToshow.length - 1];
-            if (dateStringToshow[dateStringToshow.length - 1] !== dateString) {
-              dateStringToshow.push(dateString);
-            }
-            return (
-              <div
-                className={
-                  msg.creatorId === parseInt(currentUser.idno, 10)
-                    ? "myname"
-                    : "name"
-                }
-                key={index}
-              >
-                {dateString !== lastDateString ? <h3>{dateString}</h3> : ""}
-                <span>{timeString}</span>
-                <span>{userListMap[msg && msg.creatorId].username} : </span>
-                {msg.messageBody}
-              </div>
-            );
-          })}
-        <div className={`lines`} />
+      <div className={`chat`}>
+        <ul>
+          {showingMessages[id] &&
+            showingMessages[id].map((msg, index) => {
+              const dateObj = new Date(msg.createdAt);
+              const dateString = dateObj.toLocaleDateString();
+              const timeString = dateObj.toLocaleTimeString();
+              const lastDateString =
+                dateStringToshow[dateStringToshow.length - 1];
+              if (
+                dateStringToshow[dateStringToshow.length - 1] !== dateString
+              ) {
+                dateStringToshow.push(dateString);
+              }
+              return (
+                <li
+                  className={
+                    msg.creatorId === parseInt(currentUser.idno, 10)
+                      ? "you"
+                      : "other"
+                  }
+                >
+                  <a className="user" href="#">
+                    <img
+                      alt=""
+                      src={
+                        msg.creatorId === parseInt(currentUser.idno, 10)
+                          ? "https://placem.at/people?w=100&txt=me"
+                          : `https://placem.at/people?w=100&txt=${
+                              userListMap[msg && msg.creatorId].username
+                            }`
+                      }
+                    />
+                  </a>
+                  <div className="date">
+                    <span>{userListMap[msg && msg.creatorId].username} : </span>
+                    {dateString !== lastDateString ? dateString : ""}
+                  </div>
+                  <div className="message">
+                    <p>{msg.messageBody}</p>
+                  </div>
+                </li>
+              );
+            })}
+        </ul>
         <div className={`chat-input`}>
           <form
             onSubmit={event => {

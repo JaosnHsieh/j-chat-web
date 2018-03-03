@@ -2,6 +2,9 @@
   grid-area: a;
   display: grid;
 }
+.auth-div img {
+  width: 100%;
+}
 .logined {
   background: #35323c;
   width: 100%;
