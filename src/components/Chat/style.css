@@ -22,11 +22,6 @@
   padding-left: 10%;
   font-size: 2em;
 }
-@media only screen and (max-width: 500px) {
-  .chat .back {
-    font-size: 1.5em;
-  }
-}
 
 .chat ul {
   list-style: none;
@@ -187,4 +182,16 @@
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
+}
+
+@media only screen and (max-width: 500px) {
+  .chat .back {
+    font-size: 1.5em;
+  }
+  .chat-input form {
+    margin-bottom: 1.5vh;
+  }
+  .chat {
+    padding: 10px;
+  }
 }
