@@ -20,8 +20,12 @@
   text-decoration: none;
   color: white;
   padding-left: 10%;
-  display: grid;
-  grid-template-columns: 2fr 1fr 10fr;
+  font-size: 2em;
+}
+@media only screen and (max-width: 500px) {
+  .chat .back {
+    font-size: 1.5em;
+  }
 }
 
 .chat ul {
@@ -182,16 +186,4 @@
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-}
-
-.back .img-container {
-  display: inline-block;
-  height: 100%;
-}
-
-.back .img-container img {
-  max-height: 100%;
-}
-.back p {
-  font-size: 1.2em;
 }

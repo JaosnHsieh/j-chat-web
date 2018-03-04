@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Button from "../Button";
 import "./style.css";
-import returnImg from "../../static/img/return.png";
 class Chat extends Component {
   constructor(props) {
     super(props);
@@ -67,10 +66,7 @@ class Chat extends Component {
     return (
       <div className={`chat`}>
         <Link to="/contacts" className="back">
-          <div className="img-container">
-            <img src={returnImg} />
-          </div>
-          <p> {`${roomName}`}</p>
+          {`< ${roomName}`}
         </Link>
         <ul>
           {showingMessages[id] &&
