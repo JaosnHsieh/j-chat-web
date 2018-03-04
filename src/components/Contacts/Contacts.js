@@ -30,11 +30,13 @@ class Contacts extends React.Component {
           return currentUser.idno === user.idno ? null : (
             <div className="user-div" key={user.idno}>
               <Link to={`${match.url}/user/${user.idno}`}>
-                <img
-                  className="avatar center"
-                  src={`https://placem.at/people?w=100&txt=0&random=${Math.random()}`}
-                  alt={""}
-                />
+                <div className="img-container">
+                  <img
+                    className="avatar center"
+                    src={`https://placem.at/people?w=100&txt=0&random=${Math.random()}`}
+                    alt={""}
+                  />
+                </div>
                 <div className="name-desc-div">
                   <span className="name">{user.name}</span>
                   <span className="message-count">

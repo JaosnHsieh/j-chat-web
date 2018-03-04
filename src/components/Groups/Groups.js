@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 // import Chat from "./Chat.js";
 // import axios from "../../libs/axios.js";
+import Button from "../Button";
 import groupIcon from "../../static/img/team-icon.png";
 import "./style.css";
 class Groups extends React.Component {
@@ -12,7 +13,7 @@ class Groups extends React.Component {
       <div className="groups-div">
         <div>
           <Link to={`/creategroup`}>
-            <button>建立群組</button>
+            <Button>建立群組</Button>
           </Link>
         </div>
         My Groups({myGroupList.length})

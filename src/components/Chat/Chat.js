@@ -1,5 +1,8 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import Button from "../Button";
 import "./style.css";
+import returnImg from "../../static/img/return.png";
 class Chat extends Component {
   constructor(props) {
     super(props);
@@ -37,9 +40,11 @@ class Chat extends Component {
       match,
       messages,
       userList,
+      groupList,
       groupMessages,
       currentUser
     } = this.props;
+    console.log(this.props);
     const id = match && match.params && match.params.id; // cloud be user.id or group.id depends on route
     const chatType = match && match.params && match.params.chatType;
     const showingMessages = chatType === "user" ? messages : groupMessages; // user or group
@@ -50,9 +55,23 @@ class Chat extends Component {
         [ele.idno]: { ...ele }
       };
     }, {});
+    const groupListMap = groupList.reduce((result, ele) => {
+      return {
+        ...result,
+        [ele.idno]: { ...ele }
+      };
+    }, {});
     const dateStringToshow = [];
+    const roomName =
+      chatType === "user" ? userListMap[id].username : groupListMap[id].name;
     return (
       <div className={`chat`}>
+        <Link to="/contacts" className="back">
+          <div className="img-container">
+            <img src={returnImg} />
+          </div>
+          <p> {`${roomName}`}</p>
+        </Link>
         <ul>
           {showingMessages[id] &&
             showingMessages[id].map((msg, index) => {
@@ -122,15 +141,14 @@ class Chat extends Component {
               }}
               required
             />
-            <button
-              type="button"
+            <Button
               onClick={event => {
                 this.onSubmit(id, chatType);
                 event.preventDefault();
               }}
             >
               Submit
-            </button>
+            </Button>
           </form>
         </div>
       </div>

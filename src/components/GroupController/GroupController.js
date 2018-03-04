@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import axios from "../../libs/axios.js";
+import Button from "../Button";
+import "./style.css";
 class GroupController extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      tipText: ""
+    };
   }
   joinGroup = async groupId => {
     try {
@@ -14,7 +18,13 @@ class GroupController extends Component {
 
       // alert(`joined group ${groupId}`);
       addOneMyGroup(joinedGroup);
+      this.setState({
+        tipText: "JOINED SUCCESSFULLY!"
+      });
     } catch (err) {
+      this.setState({
+        tipText: "JOINED ALREADY!!"
+      });
       console.log("joinGroup error", err);
     }
   };
@@ -29,13 +39,19 @@ class GroupController extends Component {
       const { removeOneMyGroup } = this.props;
       removeOneMyGroup(leavedUserXGroup);
       // alert(`leaved group ${groupId}`);
+      this.setState({
+        tipText: "LEAVED SUCCESSFULLY!"
+      });
     } catch (err) {
+      this.setState({
+        tipText: "YOU ARE NOT IN THE GROUP"
+      });
       console.log("leaveGroup error", err);
     }
   };
   render() {
     // console.log("this.props in GroupController", this.props);
-    const { match, groupList } = this.props;
+    const { match, groupList, history } = this.props;
     const groupId = match && match.params && match.params.id;
     const formatedGroupList = groupList.reduce((result, ele) => {
       return {
@@ -44,28 +60,32 @@ class GroupController extends Component {
       };
     }, {});
     const selectedGroup = formatedGroupList[groupId];
-    console.log(selectedGroup);
     return (
-      <div>
-        groupId {selectedGroup.idno}
-        group desc : {selectedGroup.desc}
-        <div>
-          <button
-            onClick={() => {
-              this.joinGroup(groupId);
-            }}
-          >
-            加入
-          </button>
-        </div>
-        <div>
-          <button
-            onClick={() => {
-              this.leaveGroup(groupId);
-            }}
-          >
-            退出
-          </button>
+      <div className="group-controller-div">
+        <div className="card center">
+          <p>{this.state.tipText}</p>
+          <p>Group Name : </p>
+          <p>{selectedGroup.idno}</p>
+          <p>Group Description :</p>
+          <p> {selectedGroup.desc}</p>
+          <div className="btn-group">
+            <Button
+              onClick={() => {
+                this.joinGroup(groupId);
+                history.push(`/contacts/group/${groupId}`);
+              }}
+            >
+              加入
+            </Button>
+            <Button
+              onClick={() => {
+                this.leaveGroup(groupId);
+                history.push(`/groups`);
+              }}
+            >
+              退出
+            </Button>
+          </div>
         </div>
       </div>
     );

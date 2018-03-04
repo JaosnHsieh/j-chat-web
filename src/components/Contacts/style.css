@@ -4,8 +4,13 @@
   height: 60vh;
   overflow-y: scroll;
 }
+.contact-div .img-container {
+  text-align: center;
+  width: 100%;
+}
 .contact-div img.avatar {
   border-radius: 50%;
+  max-height: 100%;
 }
 .contact-div .user-div {
   padding: 10px;
@@ -41,7 +46,7 @@
 .user-div > a:active {
   color: inherit;
   display: grid;
-  grid-template-columns: 1fr 10fr 10fr;
+  grid-template-columns: 2fr 10fr 10fr;
   text-decoration: none !important;
 }
 
