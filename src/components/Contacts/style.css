@@ -46,7 +46,7 @@
 .user-div > a:active {
   color: inherit;
   display: grid;
-  grid-template-columns: 2fr 10fr 10fr;
+  grid-template-columns: 2fr 10fr 2fr;
   text-decoration: none !important;
 }
 
