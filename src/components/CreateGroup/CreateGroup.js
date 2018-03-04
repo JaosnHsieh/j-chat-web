@@ -1,11 +1,14 @@
 import React from "react";
 import axios from "../../libs/axios";
+import "./style.css";
+import Button from "../Button";
 class CreateGroup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       name: "",
-      desc: ""
+      desc: "",
+      tipText: ""
     };
   }
   onNameChange = e => {
@@ -33,6 +36,9 @@ class CreateGroup extends React.Component {
       this.joinGroup(newGroup.idno);
       addOneGroup(newGroup);
     } catch (err) {
+      this.setState({
+        tipText: "SAME GROUP NAME ERROR!!"
+      });
       console.log("createGroup error", err);
     }
   };
@@ -41,38 +47,45 @@ class CreateGroup extends React.Component {
       const { data: joinedGroup } = await axios.post("/userxgroup", {
         groupId
       });
-      const { addOneMyGroup } = this.props;
+      const { addOneMyGroup, history } = this.props;
       // alert(`joined group ${groupId}`);
       addOneMyGroup(joinedGroup);
+      history.push("/groups");
     } catch (err) {
       console.log("joinGroup error", err);
     }
   };
   render() {
     return (
-      <div>
-        <form onSubmit={this.onSubmit}>
+      <div className="create-group-div">
+        <form className="card center" onSubmit={this.onSubmit}>
+          {this.state.tipText && <p>this.state.tipText</p>}
+          <h2>New Group</h2>
           <div>
             <label>
-              group name:{" "}
+              Name
               <input
                 type="text"
                 value={this.state.name}
                 onChange={this.onNameChange}
+                placeholder="Gruop Name"
               />
             </label>
           </div>
           <div>
             <label>
-              group dsec:{" "}
+              Dsecription
               <input
                 type="text"
                 value={this.state.desc}
                 onChange={this.onDescChange}
+                placeholder="talking about pets"
               />
             </label>
           </div>
-          <input type="submit" onClick={this.onSubmit} />
+          <Button type="submit" onClick={this.onSubmit}>
+            Submit
+          </Button>
         </form>
       </div>
     );

@@ -1,0 +1,28 @@
+.create-group-div {
+  height: 50vh;
+  display: grid;
+}
+.create-group-div .card {
+  padding: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  display: grid;
+  width: 80%;
+  height: 50%;
+  grid-template-rows: 2fr 2fr 2fr 1fr;
+}
+
+.create-group-div .card h2 {
+  text-align: center;
+}
+.create-group-div input {
+  margin-left: 5px;
+}
+.create-group-div .card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.create-group-div .btn-group {
+  display: grid;
+  grid-gap: 10px;
+}
