@@ -27,13 +27,6 @@ class Contacts extends React.Component {
         })}
         <p className="header">All Users</p>
         {userList.map(user => {
-          console.log(
-            "messages[user.idno].length",
-            messages[user.idno] &&
-              messages[user.idno].length &&
-              messages[user.idno][messages[user.idno].length - 1]
-          );
-
           return currentUser.idno === user.idno ? null : (
             <div className="user-div" key={user.idno}>
               <Link to={`${match.url}/user/${user.idno}`}>

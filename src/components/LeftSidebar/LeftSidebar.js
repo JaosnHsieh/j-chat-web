@@ -14,10 +14,10 @@ class Sidebar extends Component {
     return (
       <div className="left-sidebar">
         <TabButton url={"/contacts"}>
-          <img className="icon" src={chatIcon} />
+          <img className="icon" src={chatIcon} alt="chat icon" />
         </TabButton>
         <TabButton url={"/groups"}>
-          <img className="icon" src={teamIcon} />
+          <img className="icon" src={teamIcon} alt="team icon" />
         </TabButton>
         {/* <TabButton url={"/Profile"}>Profile</TabButton> */}
       </div>

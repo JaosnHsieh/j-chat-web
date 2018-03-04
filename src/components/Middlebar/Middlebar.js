@@ -8,16 +8,7 @@ import CreateGroup from "../CreateGroup";
 
 import "./style.css";
 
-const HOC = (inputProps, Component) => {
-  return ({ ...routeProps }) => <Component {...inputProps} {...routeProps} />;
-};
 class Middlebar extends Component {
-  constructor(props) {
-    super(props);
-    // this.state = {
-    //   activeTab: "firstOne"
-    // };
-  }
   render() {
     return (
       <div className="middlebar-div">
@@ -25,26 +16,26 @@ class Middlebar extends Component {
           <Route
             exact
             path="/contacts"
-            component={HOC({ ...this.props }, Contacts)}
+            render={props => <Contacts {...this.props} {...props} />}
           />
           <Route
             exact
             path="/groups"
-            component={HOC({ ...this.props }, Groups)}
+            render={props => <Groups {...this.props} {...props} />}
           />
 
           <Route
             path="/contacts/:chatType/:id"
-            component={HOC(this.props, Chat)}
+            render={props => <Chat {...this.props} {...props} />}
           />
           <Route
             path="/groups/:id"
-            component={HOC(this.props, GroupController)}
+            render={props => <GroupController {...this.props} {...props} />}
           />
           <Route
             exact
             path="/creategroup"
-            component={HOC(this.props, CreateGroup)}
+            render={props => <CreateGroup {...this.props} {...props} />}
           />
         </Switch>
       </div>

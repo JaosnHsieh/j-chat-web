@@ -1,5 +1,6 @@
 .chat {
-  height: 60vh;
+  height: 75vh;
+  max-height: 80vh;
   overflow-y: scroll;
 }
 
@@ -127,8 +128,16 @@
   margin: 0 0 0 -15px;
 }
 
+.chat-input form {
+  display: grid;
+  grid-template-columns: 7fr 1fr 1fr;
+  width: 100%;
+  padding-left: 2%;
+  box-sizing: border-box;
+  margin-top: 20px;
+}
 .chat-input input {
-  width: 80%;
+  /* width: 80%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: "Telefon Black", Sans-Serif;
@@ -139,5 +148,5 @@
   box-shadow: none !important;
   border: 0;
   padding: 0;
-  margin-top: 20px;
+  margin-top: 20px; */
 }

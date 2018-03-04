@@ -24,7 +24,6 @@ class Login extends React.Component {
     });
   };
   render() {
-    console.log("rendering");
     const { onLogined, isAuthenticated } = this.props;
 
     if (isAuthenticated) {

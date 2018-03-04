@@ -8,6 +8,16 @@ class Chat extends Component {
       people: {}
     };
   }
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  };
+  componentDidMount() {
+    this.scrollToBottom();
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
   onSubmit = (userId, chatType) => {
     const { input } = this.state;
     this.props.sendViaWebsocket(userId, input, chatType);
@@ -48,7 +58,7 @@ class Chat extends Component {
             showingMessages[id].map((msg, index) => {
               const dateObj = new Date(msg.createdAt);
               const dateString = dateObj.toLocaleDateString();
-              const timeString = dateObj.toLocaleTimeString();
+              // const timeString = dateObj.toLocaleTimeString();
               const lastDateString =
                 dateStringToshow[dateStringToshow.length - 1];
               if (
@@ -58,13 +68,14 @@ class Chat extends Component {
               }
               return (
                 <li
+                  key={index}
                   className={
                     msg.creatorId === parseInt(currentUser.idno, 10)
                       ? "you"
                       : "other"
                   }
                 >
-                  <a className="user" href="#">
+                  <a className="user">
                     <img
                       alt=""
                       src={
@@ -87,6 +98,12 @@ class Chat extends Component {
               );
             })}
         </ul>
+        <div
+          style={{ float: "left", clear: "both" }}
+          ref={el => {
+            this.messagesEnd = el;
+          }}
+        />
         <div className={`chat-input`}>
           <form
             onSubmit={event => {
