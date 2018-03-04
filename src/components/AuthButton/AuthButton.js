@@ -29,8 +29,10 @@ const AuthButton = withRouter(
         </div>
       </div>
     ) : (
-      <div className="auth-div center">
-        <img src={logo} />
+      <div className="auth-div">
+        <div className="img-container">
+          <img src={logo} />
+        </div>
         {/* <p className="center">You are not logged in.</p>{" "}
         <Link className="center" to="/signup">
           {" "}

@@ -1,9 +1,8 @@
 .auth-div {
   grid-area: a;
   display: grid;
-}
-.auth-div img {
-  width: 100%;
+  align-self: auto;
+  justify-self: center;
 }
 .logined {
   background: #35323c;
@@ -47,4 +46,14 @@ p.credit {
 }
 p.credit a {
   color: white;
+}
+
+.auth-div .img-container {
+  width: 100%;
+  text-align: center;
+}
+.auth-div .img-container > img {
+  object-fit: cover;
+  width: auto;
+  max-height: 100%;
 }
