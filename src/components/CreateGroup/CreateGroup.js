@@ -63,7 +63,8 @@ class CreateGroup extends React.Component {
           <h2>New Group</h2>
           <div>
             <label>
-              Name
+              <p>Name</p>
+
               <input
                 type="text"
                 value={this.state.name}
@@ -74,7 +75,7 @@ class CreateGroup extends React.Component {
           </div>
           <div>
             <label>
-              Dsecription
+              <p>Dsecription</p>
               <input
                 type="text"
                 value={this.state.desc}
