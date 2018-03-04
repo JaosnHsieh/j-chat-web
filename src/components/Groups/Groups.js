@@ -16,7 +16,7 @@ class Groups extends React.Component {
             <Button>建立群組</Button>
           </Link>
         </div>
-        My Groups({myGroupList.length})
+        <p>My Groups({myGroupList.length})</p>
         {myGroupList.map(group => {
           return (
             <div className="group-div" key={group.idno}>
@@ -32,7 +32,7 @@ class Groups extends React.Component {
             </div>
           );
         })}
-        All groupList
+        <p>All groupList</p>
         {groupList.map(group => {
           return (
             <div className="group-div" key={group.idno}>
