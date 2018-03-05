@@ -11,7 +11,7 @@ class Chat extends Component {
     };
   }
   scrollToBottom = () => {
-    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+    this.messagesEnd.scrollIntoView({ behavior: "instant" });
   };
   componentDidMount() {
     this.scrollToBottom();
