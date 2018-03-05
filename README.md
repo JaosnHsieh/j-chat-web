@@ -10,7 +10,7 @@ This project and [chatapi](https://github.com/JaosnHsieh/chatapi/tree/develop) a
 
 ### Backend Server
 
-[chatapi](https://github.com/JaosnHsieh/chatapi/tree/develop)
+[j-chat-app](https://github.com/JaosnHsieh/j-chat-web)
 
 ### Start the Development Server
 
