@@ -17,7 +17,6 @@ class Contacts extends React.Component {
                 <div className="name-desc-div">
                   <div>
                     <span className="name">{group.name}</span>
-                    <span className="message-count">0</span>
                   </div>
                   <div className="group-desc">{group.desc}</div>
                 </div>
