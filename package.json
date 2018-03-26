@@ -4,6 +4,10 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react-app": "^3.1.1",
+    "express": "^4.16.3",
+    "ignore-styles": "^5.0.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
@@ -15,9 +19,11 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "precommit": "pretty-quick --staged"
+    "precommit": "pretty-quick --staged",
+    "ssr": "set NODE_ENV=production && node ./server/bootstrap.js"
   },
   "devDependencies": {
+    "cross-env": "^5.1.4",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.0",
     "faker": "^4.1.0",
