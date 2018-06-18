@@ -32,6 +32,7 @@
   margin: 45px 0 0 0;
   font-weight: 300;
   width: 98%;
+  height: 20px;
 }
 .chat ul li a.user {
   margin: -30px 0 0 0;
@@ -50,7 +51,7 @@
   color: #a6a6a6;
 }
 .chat ul li .message {
-  display: block;
+  display: inline-block;
   padding: 10px;
   position: relative;
   color: #fff;
@@ -118,6 +119,7 @@
 }
 .chat ul li.other .message {
   margin: 0 90px 0 0;
+  float: right;
 }
 .chat ul li.other .message:before {
   margin: -9px -16px 0 0;
