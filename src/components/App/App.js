@@ -173,7 +173,7 @@ class App extends Component {
     }
   };
   listenToWebsocket = () => {
-    socket = io("45.32.119.183:3030");
+    socket = io(process.env.REACT_APP_WS_URL || "45.32.119.183:3030");
     socket.on("my message", ({ msg, chatType }) => {
       switch (chatType) {
         case "user":
