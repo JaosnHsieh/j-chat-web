@@ -1,5 +1,5 @@
 # Use root/example as user/password credentials
-version: "3.3"
+version: '3.3'
 
 services:
   db:
@@ -13,10 +13,10 @@ services:
       MYSQL_USER: chat-api
       MYSQL_PASSWORD: chat-api
     ports:
-      - "3306:3306"
+      - '3306:3306'
 
   chatapi:
-    image: chatapi:dev
+    image: appleoxxo/chatapi:dev
     restart: always
     environment:
       NODE_ENV: development
@@ -30,7 +30,7 @@ services:
     command: npm start
 
   j-chat-web:
-    image: j-chat-web:dev
+    image: appleoxxo/j-chat-web:dev
     restart: always
     environment:
       NODE_ENV: development
