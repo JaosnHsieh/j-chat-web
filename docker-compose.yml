@@ -1,5 +1,5 @@
 # sqlite usage
-version: '3'
+version: "3"
 
 services:
   jchat:
@@ -14,11 +14,9 @@ services:
     restart: always
     environment:
       NODE_ENV: production
-      PORT: 3030
-    volumes:
-      - ./chatapi.sqlite/:/app/chatapi.sqlite
+      PORT: 3001
     ports:
-      - 3030:3030
+      - 3001:3001
     # command: npm start
 
   chatapi:
@@ -27,14 +25,14 @@ services:
     restart: always
     environment:
       NODE_ENV: production
-      IS_USE_SQLITE: 'true'
+      IS_USE_SQLITE: "true"
       # DB_HOSTNAME: ${localip}
       # DB_NAME: chat-api
       # DB_USERNAME: root
       # DB_PASSWORD: rootpass
       PORT: 3306
     volumes:
-      - ../chatapi/chatapi.sqlite/:/app/chatapi.sqlite
+      - ../chatapi/chatapi.sqlite:/app/chatapi.sqlite
     ports:
       - 3306:3306
     # command: npm start
