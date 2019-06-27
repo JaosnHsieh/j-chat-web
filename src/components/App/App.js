@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import "./App.css";
-import { Route, Switch } from "react-router-dom";
-import Login from "../Login";
-import Protected from "../Protected";
-import PrivateRoute from "../PrivateRoute";
-import Signup from "../Signup";
-import AuthButton from "../AuthButton";
-import axios from "../../libs/axios.js";
-import io from "socket.io-client";
+import React, { Component } from 'react';
+import './App.css';
+import { Route, Switch } from 'react-router-dom';
+import Login from '../Login';
+import Protected from '../Protected';
+import PrivateRoute from '../PrivateRoute';
+import Signup from '../Signup';
+import AuthButton from '../AuthButton';
+import axios from '../../libs/axios.js';
+import io from 'socket.io-client';
 let socket;
 class App extends Component {
   state = {
@@ -17,7 +17,7 @@ class App extends Component {
     currentUser: null,
     groupList: [],
     myGroupList: [],
-    groupMessages: []
+    groupMessages: [],
   };
   async componentDidMount() {
     this.checkIfAlreadyLogined();
@@ -25,22 +25,22 @@ class App extends Component {
   addOneGroup = group => {
     const { groupList } = this.state;
     this.setState({
-      groupList: [...groupList, group]
+      groupList: [...groupList, group],
     });
   };
   addOneMyGroup = group => {
     const { myGroupList } = this.state;
     this.setState({
-      myGroupList: [...myGroupList, group]
+      myGroupList: [...myGroupList, group],
     });
   };
   removeOneMyGroup = leavedUserXGroup => {
     const removedMyGroupList = this.state.myGroupList.filter(ele => {
       return ele.idno === leavedUserXGroup.groupId ? false : true;
     });
-    console.log("removedMyGroupList", removedMyGroupList);
+    console.log('removedMyGroupList', removedMyGroupList);
     this.setState({
-      myGroupList: removedMyGroupList
+      myGroupList: removedMyGroupList,
     });
   };
   addCurrentGroupMessage = (groupId, messageBody) => {
@@ -57,11 +57,11 @@ class App extends Component {
           {
             messageBody,
             creatorId: currentUser.idno,
-            createdAt: new Date().toISOString()
-          }
+            createdAt: new Date().toISOString(),
+          },
         ].sort(function(a, b) {
           return new Date(a.createdAt) - new Date(b.createdAt);
-        })
+        }),
       };
     } else {
       updatedMessages = {
@@ -70,15 +70,15 @@ class App extends Component {
           {
             messageBody,
             creatorId: currentUser.idno,
-            createdAt: new Date().toISOString()
-          }
+            createdAt: new Date().toISOString(),
+          },
         ].sort(function(a, b) {
           return new Date(a.createdAt) - new Date(b.createdAt);
-        })
+        }),
       };
     }
     this.setState({
-      groupMessages: updatedMessages
+      groupMessages: updatedMessages,
     });
   };
   addCurrentUserMessage = (userId, messageBody) => {
@@ -95,11 +95,11 @@ class App extends Component {
           {
             messageBody,
             creatorId: currentUser.idno,
-            createdAt: new Date().toISOString()
-          }
+            createdAt: new Date().toISOString(),
+          },
         ].sort(function(a, b) {
           return new Date(a.createdAt) - new Date(b.createdAt);
-        })
+        }),
       };
     } else {
       updatedMessages = {
@@ -108,16 +108,16 @@ class App extends Component {
           {
             messageBody,
             creatorId: currentUser.idno,
-            createdAt: new Date().toISOString()
-          }
+            createdAt: new Date().toISOString(),
+          },
         ].sort(function(a, b) {
           return new Date(a.createdAt) - new Date(b.createdAt);
-        })
+        }),
       };
     }
 
     this.setState({
-      messages: updatedMessages
+      messages: updatedMessages,
     });
   };
   getUserInitData = async () => {
@@ -126,13 +126,13 @@ class App extends Component {
       { data: messages },
       { data: groupList },
       { data: myGroupList },
-      { data: groupMessages }
+      { data: groupMessages },
     ] = await Promise.all([
-      axios.get("/user"),
-      axios.get("/message/user"),
-      axios.get("/group"),
-      axios.get("/mygroup"),
-      axios.get("/message/group")
+      axios.get('/user'),
+      axios.get('/message/user'),
+      axios.get('/group'),
+      axios.get('/mygroup'),
+      axios.get('/message/group'),
     ]);
     this.joinGroupsChannel(myGroupList);
     this.setState({
@@ -143,7 +143,7 @@ class App extends Component {
       messages: messages,
       groupList,
       myGroupList,
-      groupMessages
+      groupMessages,
     });
   };
   joinGroupsChannel = myGroupList => {
@@ -154,7 +154,7 @@ class App extends Component {
   };
   checkIfAlreadyLogined = async () => {
     try {
-      let { data: currentUser } = await axios.get("/login");
+      let { data: currentUser } = await axios.get('/login');
       this.updateLoginState(true, currentUser);
     } catch (err) {
       console.log(err);
@@ -163,7 +163,7 @@ class App extends Component {
   updateLoginState = (boo, currentUser) => {
     this.setState({
       isAuthenticated: boo,
-      currentUser
+      currentUser,
     });
     if (boo) {
       this.listenToWebsocket();
@@ -173,13 +173,13 @@ class App extends Component {
     }
   };
   listenToWebsocket = () => {
-    socket = io(process.env.REACT_APP_WS_URL || "45.32.119.183:3030");
-    socket.on("my message", ({ msg, chatType }) => {
+    socket = io(process.env.REACT_APP_WS_URL || 'REACT_APP_WS_URL:3030');
+    socket.on('my message', ({ msg, chatType }) => {
       switch (chatType) {
-        case "user":
+        case 'user':
           this.addOneMessageToUser(msg);
           break;
-        case "group":
+        case 'group':
           this.addOneMessageToGroup(msg);
           break;
         default:
@@ -191,30 +191,30 @@ class App extends Component {
     const { messages } = this.state;
     const updatedMessages = {
       ...messages,
-      [msg.senderId]: [...messages[msg.senderId], msg.ChatMessage]
+      [msg.senderId]: [...messages[msg.senderId], msg.ChatMessage],
     };
     this.setState({
-      messages: updatedMessages
+      messages: updatedMessages,
     });
   };
   addOneMessageToGroup = msg => {
     const { groupMessages } = this.state;
     const updatedMessages = {
       ...groupMessages,
-      [msg.groupId]: [...groupMessages[msg.groupId], msg.ChatMessage]
+      [msg.groupId]: [...groupMessages[msg.groupId], msg.ChatMessage],
     };
     this.setState({
-      groupMessages: updatedMessages
+      groupMessages: updatedMessages,
     });
   };
   sendViaWebsocket = (idno, msg, chatType) => {
     console.log(idno, msg, chatType);
     socket.send({ chatType, idno, msg });
     switch (chatType) {
-      case "user":
+      case 'user':
         this.addCurrentUserMessage(idno, msg);
         break;
-      case "group":
+      case 'group':
         this.addCurrentGroupMessage(idno, msg);
 
         break;
@@ -224,9 +224,9 @@ class App extends Component {
   };
   onLogined = async ({ username, password }) => {
     try {
-      const { data: currentUser } = await axios.post("/login", {
+      const { data: currentUser } = await axios.post('/login', {
         username,
-        password
+        password,
       });
       this.updateLoginState(true, currentUser);
     } catch (err) {
@@ -235,7 +235,7 @@ class App extends Component {
   };
   onLogout = async cb => {
     try {
-      await axios.post("/logout");
+      await axios.post('/logout');
       this.updateLoginState(false, null);
     } catch (err) {
       console.log(err);

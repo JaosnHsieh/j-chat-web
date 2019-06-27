@@ -1,42 +1,40 @@
-# Use root/example as user/password credentials
-version: '3.3'
+# sqlite usage
+version: '3'
 
 services:
-  db:
-    image: mysql:5.7
-    volumes:
-      - /db_data:/var/lib/mysql
+  jchat:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        # https://github.com/docker/compose/issues/1837#issuecomment-316896858
+        # refer to .env file,
+        - REACT_APP_API_URL=${REACT_APP_API_URL}
+        - REACT_APP_WS_URL=${REACT_APP_WS_URL}
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: rootpass
-      MYSQL_DATABASE: chat-api
-      MYSQL_USER: chat-api
-      MYSQL_PASSWORD: chat-api
-    ports:
-      - '3306:3306'
-
-  chatapi:
-    image: appleoxxo/chatapi:dev
-    restart: always
-    environment:
-      NODE_ENV: development
-      DB_HOSTNAME: ${localip}
-      DB_NAME: chat-api
-      DB_USERNAME: root
-      DB_PASSWORD: rootpass
+      NODE_ENV: production
       PORT: 3030
+    volumes:
+      - ./chatapi.sqlite/:/app/chatapi.sqlite
     ports:
       - 3030:3030
-    command: npm start
+    # command: npm start
 
-  j-chat-web:
-    image: appleoxxo/j-chat-web:dev
+  chatapi:
+    # git clone https://github.com/JaosnHsieh/chatapi.git in ../ path first
+    build: ../chatapi/
     restart: always
     environment:
-      NODE_ENV: development
-      PORT: 3001
-      REACT_APP_API_URL: http://${localip}:3030/api/
-      REACT_APP_WS_URL: ${localip}:3030
+      NODE_ENV: production
+      IS_USE_SQLITE: 'true'
+      # DB_HOSTNAME: ${localip}
+      # DB_NAME: chat-api
+      # DB_USERNAME: root
+      # DB_PASSWORD: rootpass
+      PORT: 3306
+    volumes:
+      - ../chatapi/chatapi.sqlite/:/app/chatapi.sqlite
     ports:
-      - 3001:3001
-    command: npm start
+      - 3306:3306
+    # command: npm start
