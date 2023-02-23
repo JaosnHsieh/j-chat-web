@@ -2,7 +2,7 @@ FROM node:8.10.0-alpine
 RUN mkdir /app
 WORKDIR "/app"
 COPY . .
-RUN yarn global add pm2
+RUN yarn global add pm2@3
 RUN yarn
 #https://stackoverflow.com/a/34600106/6414615
 ARG REACT_APP_API_URL

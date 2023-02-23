@@ -9,12 +9,14 @@ services:
       args:
         # https://github.com/docker/compose/issues/1837#issuecomment-316896858
         # refer to .env file,
-        - REACT_APP_API_URL=${REACT_APP_API_URL}
-        - REACT_APP_WS_URL=${REACT_APP_WS_URL}
+        - REACT_APP_API_URL=http://localhost:3306/api/
+        - REACT_APP_WS_URL=localhost:3306
     restart: always
     environment:
       NODE_ENV: production
       PORT: 3001
+    links: 
+      - chatapi
     ports:
       - 3001:3001
     # command: npm start

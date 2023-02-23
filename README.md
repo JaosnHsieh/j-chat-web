@@ -1,74 +1,26 @@
-My fullstack demo bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+## j-chat-web
 
-<!-- ## Table of Contents
+j-chat-web was my first full-stack project, created for fun using React and Node.js in February 2018 .
 
-- [Updating to New Releases](#updating-to-new-releases) -->
+## Run with docker
 
-### !Important
+`git clone https://github.com/JaosnHsieh/chatapi`
 
-This project and [chatapi](https://github.com/JaosnHsieh/chatapi/tree/develop) are in the development phrase.
+`git clone https://github.com/JaosnHsieh/j-chat-web`
 
-### Backend Server
+`cd j-chat-web`
 
-[j-chat-app](https://github.com/JaosnHsieh/j-chat-web)
+`docker-compose up`
 
-### Start the Development Server
+visit `http://localhost:3001/`
 
-```
-npm i
-npm start
-```
+## Screenshots
 
-### Build dev image
 
-`docker build -t j-chat-web:dev --target dev .`
+![1](./screenshots/1.png "chat list")
 
-### Run Development Server from container
+![1](./screenshots/2.png "group list")
 
-`docker run --rm -it --init -v "${PWD}:/usr/src/app" j-chat-web:dev npm start`
+![1](./screenshots/3.png "chat")
 
-### Run web app and api server with docker-compose with docker hub registry
-
-`git clone https://github.com/JaosnHsieh/j-chat-web.git`
-
-`cd ./j-chat-web`
-
-replace your local machine ip
-
-`vim ./.env`
-
-from `localip=172.18.0.1` to `localip=your local ip`
-
-`docker-compose up -d`
-
-check web app on
-
-`http://localhost:3031`
-
-### Run web app and api server with docker-compose from scratch
-
-`git clone https://github.com/JaosnHsieh/j-chat-web.git`
-
-`cd ./j-chat-web`
-
-`docker build -t j-chat-web:dev --target dev .`
-
-`cd ..`
-
-`git clone https://github.com/JaosnHsieh/chatapi.git`
-
-`cd ./chatapi`
-
-`docker build -t chatapi:dev --target dev .`
-
-replace your local machine ip by
-
-`vim ./.env`
-
-replace docker image url from `appleoxxo/chatapi:dev` to `chatapi:dev`, from `appleoxxo/j-chat-web:dev` to `j-chat-web:dev`
-
-`docker-compose up -d`
-
-check web app on
-
-`http://localhost:3031`
+![1](./screenshots/4.png "create group")
